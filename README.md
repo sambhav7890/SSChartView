@@ -13,16 +13,24 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-SSChartView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+SSChartView is not available through [CocoaPods](http://cocoapods.org). 
+
+To install it:
+
+1. Add the following line to your Podfile:
 
 ```ruby
 pod "SSChartView"
 ```
 
+2. Add the podspec to your pod specs repo
+```
+pod repo push <YourRepoName> SSChartView.podspec
+```
+
 ## Author
 
-Sambhav Shah, sambhav.shah@practo.com
+Sambhav Shah, flamin.sammy@gmail.com
 
 ## License
 
