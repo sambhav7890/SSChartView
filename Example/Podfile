@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SSChartView_Example' do
+  pod 'SSChartView', :path => '../'
+
+  target 'SSChartView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
