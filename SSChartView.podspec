@@ -31,8 +31,8 @@ Simple Bar Graph UI used for charting.
   s.source_files = 'SSChartView/Classes/**/*'
   
   s.resource_bundles = {
-	'SSChartView' => ['SSChartView/Assets/**/*.{xib}']
-  }
+	'SSChartView' => ['SSChartView/Assets/**/*.xib']
+  }
 
   s.frameworks = 'UIKit'
 end
