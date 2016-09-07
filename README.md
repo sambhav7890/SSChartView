@@ -1,9 +1,6 @@
 # SSChartView
 
-[![CI Status](http://img.shields.io/travis/Sambhav Shah/SSChartView.svg?style=flat)](https://travis-ci.org/Sambhav Shah/SSChartView)
-[![Version](https://img.shields.io/cocoapods/v/SSChartView.svg?style=flat)](http://cocoapods.org/pods/SSChartView)
-[![License](https://img.shields.io/cocoapods/l/SSChartView.svg?style=flat)](http://cocoapods.org/pods/SSChartView)
-[![Platform](https://img.shields.io/cocoapods/p/SSChartView.svg?style=flat)](http://cocoapods.org/pods/SSChartView)
+[![CI Status](http://img.shields.io/travis/Sambhav Shah/SSChartView.svg?style=flat)](https://travis-ci.org/sambhav7890/SSChartView)
 
 ## Example
 
