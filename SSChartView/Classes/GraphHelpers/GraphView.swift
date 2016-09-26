@@ -8,27 +8,27 @@
 
 import UIKit
 
-public class GraphView<T: Hashable, U: NumericType>: UIView {
+open class GraphView<T: Hashable, U: NumericType>: UIView {
     
-    public var graph: Graph<T, U>? {
+    open var graph: Graph<T, U>? {
         didSet {
             self.reloadData()
         }
     }
     
-    private var barGraphConfig: BarGraphViewConfig?
+    fileprivate var barGraphConfig: BarGraphViewConfig?
 
 	public init(frame: CGRect, graph: Graph<T, U>? = nil) {
         self.graph = graph
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         self.reloadData()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         self.reloadData()
     }
     
@@ -39,7 +39,7 @@ public class GraphView<T: Hashable, U: NumericType>: UIView {
         guard let graph = self.graph else { return }
         
         switch graph.kind {
-        case .Bar(let g):
+        case .bar(let g):
             
             if let view = g.view(self.bounds) {
                 if let c = barGraphConfig {
@@ -50,7 +50,7 @@ public class GraphView<T: Hashable, U: NumericType>: UIView {
 		}
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         self.subviews.forEach{
             $0.frame = self.bounds
@@ -60,7 +60,7 @@ public class GraphView<T: Hashable, U: NumericType>: UIView {
 
 extension GraphView {
     
-    public func barGraphConfiguration(configuration: () -> BarGraphViewConfig) -> Self {
+    public func barGraphConfiguration(_ configuration: () -> BarGraphViewConfig) -> Self {
         self.barGraphConfig = configuration()
         self.subviews.forEach { (v) in
             if let barGraphView = v as? BarGraphView<T, U> {
