@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class GraphViewContainer: UIView {
+open class GraphViewContainer: UIView {
 
 	static var TopGradientColor = UIColor(rgba: (144,165,174,1.0))
 	static var BottomGradientColor = UIColor(rgba: (176,190,197,1.0))
@@ -16,16 +16,16 @@ public class GraphViewContainer: UIView {
 	//TopView
 	@IBOutlet var topView: UIView!
 
-	@IBOutlet public var titleLabel: UILabel!
-	@IBOutlet public var subtitleLabel: UILabel!
+	@IBOutlet open var titleLabel: UILabel!
+	@IBOutlet open var subtitleLabel: UILabel!
 
-	@IBOutlet public var averageSubtitleLabel: UILabel!
-	@IBOutlet public var averageTitleLabel: UILabel!
+	@IBOutlet open var averageSubtitleLabel: UILabel!
+	@IBOutlet open var averageTitleLabel: UILabel!
 
 	//GraphOverlay
 	@IBOutlet var graphOverlay: UIView!
-	@IBOutlet public var maxLabel: UILabel!
-	@IBOutlet public var minLabel: UILabel!
+	@IBOutlet open var maxLabel: UILabel!
+	@IBOutlet open var minLabel: UILabel!
 
 	//GraphView
 	@IBOutlet var graphHolder: UIView!
@@ -41,13 +41,13 @@ public class GraphViewContainer: UIView {
 	@IBOutlet var legendScrollContentView: UIView!
 
 
-	public override func awakeFromNib() {
+	open override func awakeFromNib() {
 		resetCells()
 		resetGraph()
 	}
 
-	public static func create(inView: UIView? = nil) -> GraphViewContainer? {
-		guard let bundle = NSBundle.graphBundle() else { return nil }
+	open static func create(_ inView: UIView? = nil) -> GraphViewContainer? {
+		guard let bundle = Bundle.graphBundle() else { return nil }
 		guard let nib = bundle.loadNibNamed("GraphViewContainer", owner: nil, options: nil) else { return nil }
 		guard let container = nib.first as? GraphViewContainer else { return nil }
 
@@ -57,12 +57,12 @@ public class GraphViewContainer: UIView {
 		return container
 	}
 
-	private func addConstraints(view: UIView) {
+	fileprivate func addConstraints(_ view: UIView) {
 		self.translatesAutoresizingMaskIntoConstraints = false
 		self.addAsConstrainedSubview(forContainer: view)
 	}
 
-	public func setupWithData(data: [(String, Double)]) {
+	open func setupWithData(_ data: [(String, Double)]) {
 		let dataSet = data.flatMap { GraphDataObject(data: $0) }
 		resetCells()
 		generateCells(dataSet)
@@ -71,26 +71,26 @@ public class GraphViewContainer: UIView {
 	}
 
 
-	public private (set) var legendCells: [ExpandableLegendView] = []
+	open fileprivate (set) var legendCells: [ExpandableLegendView] = []
 	internal var graphView: BarGraphView<String,Double>?
 
-	public func resetCells() {
+	open func resetCells() {
 		self.legendScrollContentView.subviews.forEach { $0.removeFromSuperview() }
-		self.legendScroller.scrollEnabled = false
-		self.legendScroller.userInteractionEnabled = false
+		self.legendScroller.isScrollEnabled = false
+		self.legendScroller.isUserInteractionEnabled = false
 		self.legendCells = []
 	}
 
-	public func resetGraph() {
-		graphScroller.scrollEnabled = false
-		graphScroller.userInteractionEnabled = false
+	open func resetGraph() {
+		graphScroller.isScrollEnabled = false
+		graphScroller.isUserInteractionEnabled = false
 		graphScrollContentView.subviews.forEach { $0.removeFromSuperview() }
 	}
 }
 
 extension GraphViewContainer {
 
-	func generateCells(data: [GraphDataObject]) {
+	func generateCells(_ data: [GraphDataObject]) {
 
 		let total = self.bounds.size.width
 		let each = total/CGFloat(data.count)
@@ -99,7 +99,7 @@ extension GraphViewContainer {
 
 		var firstView: UIView?
 
-		for (index, aData) in data.enumerate() {
+		for (index, aData) in data.enumerated() {
 			let currentOrigin = CGPoint(x: (each * CGFloat(index)), y: 0)
 			let legendFrame = CGRect(origin: currentOrigin, size: legendSize)
 			guard let legendView = ExpandableLegendView.create() else { continue }
@@ -110,23 +110,23 @@ extension GraphViewContainer {
 
 			legendScrollContentView.addSubview(legendView)
 
-			let bottomConstraint = NSLayoutConstraint(item: legendView, attribute: .Top, relatedBy: .Equal, toItem: legendScrollContentView, attribute: .Top, multiplier: 1, constant: 0)
+			let bottomConstraint = NSLayoutConstraint(item: legendView, attribute: .top, relatedBy: .equal, toItem: legendScrollContentView, attribute: .top, multiplier: 1, constant: 0)
 			legendScrollContentView.addConstraint(bottomConstraint)
 
-			let topConstraint = NSLayoutConstraint(item: legendView, attribute: .Bottom, relatedBy: .Equal, toItem: legendScrollContentView, attribute: .Bottom, multiplier: 1, constant: 0)
+			let topConstraint = NSLayoutConstraint(item: legendView, attribute: .bottom, relatedBy: .equal, toItem: legendScrollContentView, attribute: .bottom, multiplier: 1, constant: 0)
 			legendScrollContentView.addConstraint(topConstraint)
 
 			if let firstView = firstView {
 				
-				let leftSpaceConstraint = NSLayoutConstraint(item: legendView, attribute: .Left, relatedBy: .Equal, toItem: firstView, attribute: .Right, multiplier: 1, constant: 0)
+				let leftSpaceConstraint = NSLayoutConstraint(item: legendView, attribute: .left, relatedBy: .equal, toItem: firstView, attribute: .right, multiplier: 1, constant: 0)
 				legendScrollContentView.addConstraint(leftSpaceConstraint)
 
-				let equalWidthConstraint = NSLayoutConstraint(item: legendView, attribute: .Width, relatedBy: .Equal, toItem: firstView, attribute: .Width, multiplier: 1, constant: 0)
+				let equalWidthConstraint = NSLayoutConstraint(item: legendView, attribute: .width, relatedBy: .equal, toItem: firstView, attribute: .width, multiplier: 1, constant: 0)
 				legendScrollContentView.addConstraint(equalWidthConstraint)
 
 
 			} else {
-				let leftSpaceConstraint = NSLayoutConstraint(item: legendView, attribute: .Left, relatedBy: .Equal, toItem: legendScrollContentView, attribute: .Left, multiplier: 1, constant: 0)
+				let leftSpaceConstraint = NSLayoutConstraint(item: legendView, attribute: .left, relatedBy: .equal, toItem: legendScrollContentView, attribute: .left, multiplier: 1, constant: 0)
 				legendScrollContentView.addConstraint(leftSpaceConstraint)
 			}
 
@@ -135,12 +135,12 @@ extension GraphViewContainer {
 		}
 
 		if let firstView = firstView {
-			let rightSpaceConstraint = NSLayoutConstraint(item: firstView, attribute: .Right, relatedBy: .Equal, toItem: legendScrollContentView, attribute: .Right, multiplier: 1, constant: 0)
+			let rightSpaceConstraint = NSLayoutConstraint(item: firstView, attribute: .right, relatedBy: .equal, toItem: legendScrollContentView, attribute: .right, multiplier: 1, constant: 0)
 			legendScrollContentView.addConstraint(rightSpaceConstraint)
 		}
 	}
 
-	func generateGraph(data: [GraphDataObject]) {
+	func generateGraph(_ data: [GraphDataObject]) {
 
 		let range = GraphRange(min: 0.0, max: 100.0)
 
@@ -154,7 +154,7 @@ extension GraphViewContainer {
 			let color1 = GraphViewContainer.TopGradientColor
 			let color2 = GraphViewContainer.BottomGradientColor
 
-			config.barColor = GraphColorType.Gradation(color2 ,color1)
+			config.barColor = GraphColorType.gradation(color2 ,color1)
 
 			config.textVisible = false
 			config.barWidthScale = 1
@@ -178,12 +178,12 @@ struct GraphDataObject: GraphData {
 	}
 }
 
-public class ExpandableLegendView: UIView {
+open class ExpandableLegendView: UIView {
 
-	@IBOutlet public var legendLabel: UILabel!
+	@IBOutlet open var legendLabel: UILabel!
 
 	static func create() -> ExpandableLegendView? {
-		guard let bundle = NSBundle.graphBundle() else { return nil }
+		guard let bundle = Bundle.graphBundle() else { return nil }
 		guard let nib = bundle.loadNibNamed("ExpandableLegendView", owner: nil, options: nil) else { return nil }
 		guard let container = nib.first as? ExpandableLegendView else { return nil }
 		container.translatesAutoresizingMaskIntoConstraints = false
@@ -191,11 +191,11 @@ public class ExpandableLegendView: UIView {
 	}
 }
 
-internal extension NSBundle {
-	static func graphBundle() -> NSBundle? {
-		let podBundle = NSBundle(forClass: ExpandableLegendView.self)
-		guard let bundleURL = podBundle.URLForResource("PractoBarChart", withExtension: "bundle") else { return nil }
-		guard let bundle = NSBundle(URL: bundleURL) else { return nil }
+internal extension Bundle {
+	static func graphBundle() -> Bundle? {
+		let podBundle = Bundle(for: ExpandableLegendView.self)
+		guard let bundleURL = podBundle.url(forResource: "PractoBarChart", withExtension: "bundle") else { return nil }
+		guard let bundle = Bundle(url: bundleURL) else { return nil }
 		return bundle
 	}
 }
@@ -208,10 +208,10 @@ public extension UIView {
 		container.addSubview(child)
 
 		// align graph from the left and right
-		container.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]));
+		container.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]));
 
 		// align graph from the top and bottom
-		container.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]));
+		container.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]));
 	}
 
 }
