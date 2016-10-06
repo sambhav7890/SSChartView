@@ -24,11 +24,11 @@ extension UIColor {
 		return .gradation(color1, color2)
 	}
 
-//	func components() -> UnsafePointer<CGFloat> {
-//		let cgColor = self.cgColor
-//		let components = cgColor.components
-//		return components
-//	}
+	func components() -> [CGFloat] {
+		let cgColor = self.cgColor
+		let components = cgColor.components
+		return components ?? [0, 0, 0, 0]
+	}
 }
 
 extension CGRect {

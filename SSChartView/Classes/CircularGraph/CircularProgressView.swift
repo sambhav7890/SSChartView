@@ -473,7 +473,7 @@ open class UICircularProgressView: UIView {
 			}
 
 			let componentsArray = rgbColorsArray.flatMap { color -> [CGFloat] in
-				let components = color.cgColor.components ?? [0.0,0.0,0.0]
+				guard let components = color.cgColor.components else { return [0, 0, 0, 0] }
 				return [components[0], components[1], components[2], 1.0]
 			}
 
@@ -487,7 +487,10 @@ open class UICircularProgressView: UIView {
 			let trackLineWidth = radius * trackThickness
 			let progressLineWidth = radius * progressThickness
 			let arcRadius = max(radius - trackLineWidth/2, radius - progressLineWidth/2)
-			ctx.addArc(center: CGPoint(x: width/2.0, y: height/2.0), radius: arcRadius, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: false)
+
+			let center = CGPoint(x: width/2, y: height/2)
+			ctx.addArc(center: center, radius: arcRadius, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: false)
+
 			trackColor.set()
 
 			ctx.setStrokeColor(trackColor.cgColor)
@@ -501,7 +504,7 @@ open class UICircularProgressView: UIView {
 
 			let imageCtx = UIGraphicsGetCurrentContext()
 
-			imageCtx?.addArc(center: CGPoint(x: width/2.0, y: height/2.0), radius: arcRadius, startAngle: fromAngle, endAngle: toAngle, clockwise: clockwise)
+			imageCtx?.addArc(center: center, radius: arcRadius, startAngle: fromAngle, endAngle: toAngle, clockwise: clockwise)
 
 			let glowValue = GlowConstants.glowAmountForAngle(reducedAngle, glowAmount: glowAmount, glowMode: glowMode, size: width)
 
