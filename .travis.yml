@@ -2,27 +2,29 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
+#Swift3
 osx_image: xcode8
+
+#ios
 language: objective-c
+
+#Caching Cocoapods so that they arent reinstalled if not changed.
 cache: cocoapods
+
+#Podfile Path
 podfile: Example/Podfile
 
 before_install:
-- gem install cocoapods # Since Travis is not always on latest version
-- pod install --project-directory=Example -
+  - gem install cocoapods # Since Travis is not always on latest version
+  - gem install xcodeproj
+  - sed -i '' "s#//github.com/practo#//${GH_TOKEN}@github.com/practo#g" Podfile
+  - pod install --repo-update --silent
 
-script:
-
-- set -o pipefail && xcodebuild test \
--workspace Example/SSChartView.xcworkspace \
--scheme SSChartView-Example \
--destination 'platform=iOS Simulator, name=iPhone 6s, OS=10.0' \
--destination 'platform=iOS Simulator, name=iPhone 4s, OS=8.4' \
--configuration Debug clean build | xcpretty
-
-# safelist
 branches:
   only:
   - master
   - stable
   - develop
+
+script:
+- set -o pipefail && xcodebuild test -workspace Example/SSChartView.xcworkspace -scheme SSChartView-Example -destination 'platform=iOS Simulator, name=iPhone 6s, OS=10.0' -destination 'platform=iOS Simulator, name=iPhone 4s, OS=8.4' -configuration Debug clean build | xcpretty
