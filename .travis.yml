@@ -9,16 +9,16 @@ podfile: Example/Podfile
 
 before_install:
 - gem install cocoapods # Since Travis is not always on latest version
-- pod install --project-directory=Example
+- pod install --project-directory=Example -
 
 script:
+
 - set -o pipefail && xcodebuild test \
-  -workspace Example/SSChartView.xcworkspace \
-  -scheme SSChartView-Example \
-  -destination 'platform=iOS Simulator, name=iPhone 6s, OS=10.0' \
-  -destination 'platform=iOS Simulator, name=iPhone 6s, OS=9.3' \
-  -destination 'platform=iOS Simulator, name=iPhone 4s, OS=8.4' \
-  -configuration Debug clean build | xcpretty
+-workspace Example/SSChartView.xcworkspace \
+-scheme SSChartView-Example \
+-destination 'platform=iOS Simulator, name=iPhone 6s, OS=10.0' \
+-destination 'platform=iOS Simulator, name=iPhone 4s, OS=8.4' \
+-configuration Debug clean build | xcpretty
 
 # safelist
 branches:
