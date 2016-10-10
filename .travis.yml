@@ -12,7 +12,13 @@ before_install:
 - pod install --project-directory=Example
 
 script:
-- set -o pipefail && xcodebuild test -workspace Example/SSChartView.xcworkspace -scheme SSChartView-Example -sdk iphonesimulator10.0 ONLY_ACTIVE_ARCH=NO | xcpretty
+- set -o pipefail && xcodebuild test \
+  -workspace Example/SSChartView.xcworkspace \
+  -scheme SSChartView-Example \
+  -destination 'platform=iOS Simulator, name=iPhone 6s, OS=10.0' \
+  -destination 'platform=iOS Simulator, name=iPhone 6s, OS=9.3' \
+  -destination 'platform=iOS Simulator, name=iPhone 4s, OS=8.4' \
+  -configuration Debug clean build | xcpretty
 
 # safelist
 branches:
