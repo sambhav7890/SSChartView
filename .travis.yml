@@ -17,7 +17,7 @@ podfile: Example/Podfile
 before_install:
   - gem install cocoapods # Since Travis is not always on latest version
   - gem install xcodeproj
-  - pod install --repo-update --silent
+  - pod install --project-directory=Example --repo-update --silent
 
 branches:only:
   - master
