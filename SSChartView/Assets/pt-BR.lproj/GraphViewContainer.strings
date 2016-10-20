@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Today"; ObjectID = "IBW-Fe-rad"; */
+"IBW-Fe-rad.text" = "Hoje";
+
+/* Class = "UILabel"; text = "70%"; ObjectID = "TpE-mw-K7d"; */
+"TpE-mw-K7d.text" = "70%";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Vt0-xa-B5E"; */
+"Vt0-xa-B5E.text" = "0";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "aER-45-rZc"; */
+"aER-45-rZc.text" = "100";
+
+/* Class = "UILabel"; text = "avg."; ObjectID = "c0A-eq-Aid"; */
+"c0A-eq-Aid.text" = "média";
+
+/* Class = "UILabel"; text = "Performance"; ObjectID = "k6a-Rd-AWp"; */
+"k6a-Rd-AWp.text" = "Atuação";

@@ -1,5 +1,5 @@
 PODS:
-  - SSChartView (0.1.0)
+  - SSChartView (0.2.0)
 
 DEPENDENCIES:
   - SSChartView (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  SSChartView: 976a3b117624ac7395c0b164d0ec06d70b4d18ba
+  SSChartView: e766ab703558d157f037a8411655da6777987df2
 
 PODFILE CHECKSUM: f4759405a39cf61115705cea88c034f8e5d85ce5
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.0.1
