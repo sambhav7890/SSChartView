@@ -148,7 +148,7 @@ extension GraphViewContainer {
 
 		let graphView = graph.view(graphScrollContentView.bounds)
 
-		graphView.barGraphConfiguration { () -> BarGraphViewConfig in
+		let _ = graphView.barGraphConfiguration { () -> BarGraphViewConfig in
 			var config = BarGraphViewConfig()
 
 			let color1 = GraphViewContainer.TopGradientColor
