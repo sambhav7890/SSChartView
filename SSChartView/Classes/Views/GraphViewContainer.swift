@@ -194,7 +194,7 @@ open class ExpandableLegendView: UIView {
 internal extension Bundle {
 	static func graphBundle() -> Bundle? {
 		let podBundle = Bundle(for: ExpandableLegendView.self)
-		guard let bundleURL = podBundle.url(forResource: "PractoBarChart", withExtension: "bundle") else { return nil }
+		guard let bundleURL = podBundle.url(forResource: "SSChartView", withExtension: "bundle") else { return nil }
 		guard let bundle = Bundle(url: bundleURL) else { return nil }
 		return bundle
 	}
