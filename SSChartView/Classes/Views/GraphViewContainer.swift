@@ -62,17 +62,17 @@ open class GraphViewContainer: UIView {
 		self.addAsConstrainedSubview(forContainer: view)
 	}
 
-	open func setupWithData(_ data: [(String, Double)]) {
-		let dataSet = data.flatMap { GraphDataObject(data: $0) }
+	open func setup(data values: [Double] = [], keys: [String] = []) {
 		resetCells()
-		generateCells(dataSet)
+		generateCells(keys)
 		resetGraph()
-		generateGraph(dataSet)
+		let graphData = GraphDataObject.generate(fromValues: values)
+		generateGraph(graphData)
 	}
 
 
 	open fileprivate (set) var legendCells: [ExpandableLegendView] = []
-	internal var graphView: BarGraphView<String,Double>?
+	internal var graphView: BarGraphView<Int,Double>?
 
 	open func resetCells() {
 		self.legendScrollContentView.subviews.forEach { $0.removeFromSuperview() }
@@ -90,7 +90,7 @@ open class GraphViewContainer: UIView {
 
 extension GraphViewContainer {
 
-	func generateCells(_ data: [GraphDataObject]) {
+	func generateCells(_ data: [String]) {
 
 		let total = self.bounds.size.width
 		let each = total/CGFloat(data.count)
@@ -105,7 +105,7 @@ extension GraphViewContainer {
 			guard let legendView = ExpandableLegendView.create() else { continue }
 			legendView.frame = legendFrame
 
-			let key = aData.key
+			let key = aData
 			legendView.legendLabel.text = key
 
 			legendScrollContentView.addSubview(legendView)
@@ -163,18 +163,29 @@ extension GraphViewContainer {
 		}
 
 		graphView.translatesAutoresizingMaskIntoConstraints = false
-		self.graphView = graphView as? BarGraphView<String,Double>
+		self.graphView = graphView as? BarGraphView<Int,Double>
 		graphView.addAsConstrainedSubview(forContainer: graphScrollContentView)
 	}
 }
 
 struct GraphDataObject: GraphData {
-	var key: String
+	var key: Int
 	var value: Double
 
-	init(data: (String, Double)) {
+	init(data: (Int, Double)) {
 		self.key = data.0
 		self.value = data.1
+	}
+
+	static func generate(fromValues values: [Double]) -> [GraphDataObject] {
+		var data = [GraphDataObject]()
+
+		for (index, val) in values.enumerated() {
+			let graphDataObj = GraphDataObject(data: (index, val))
+			data.append(graphDataObj)
+		}
+
+		return data
 	}
 }
 
