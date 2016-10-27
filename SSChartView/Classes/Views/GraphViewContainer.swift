@@ -8,10 +8,35 @@
 
 import UIKit
 
+public enum GraphGradientState {
+	case gray
+	case green
+
+	func gradientColorsForBar() -> [CGColor] {
+		switch self {
+		case .gray:
+			return [UIColor(rgba: (176,190,197,1.0)), UIColor(rgba: (144,165,174,1.0))].map{$0.cgColor}
+		case .green:
+			return [UIColor(rgba: (167,213,169,1.0)), UIColor(rgba: (200,230,201,1.0))].map{$0.cgColor}
+		}
+		return []
+	}
+
+	func gradientColorsForGraph() -> [CGColor] {
+		switch self {
+		case .gray:
+			return [UIColor(rgba: (236,239,241,1.0)), UIColor(rgba: (236,239,241,1.0))].map{$0.cgColor}
+		case .green:
+			return [UIColor(rgba: (120,206,125,1.0)),UIColor(rgba: (67,160,71,1.0))].map{$0.cgColor}
+		}
+
+		return []
+	}
+
+}
+
 open class GraphViewContainer: UIView {
 
-	static var TopGradientColor = UIColor(rgba: (144,165,174,1.0))
-	static var BottomGradientColor = UIColor(rgba: (176,190,197,1.0))
 
 	//TopView
 	@IBOutlet var topView: UIView!
@@ -40,10 +65,28 @@ open class GraphViewContainer: UIView {
 	@IBOutlet var legendScroller: UIScrollView!
 	@IBOutlet var legendScrollContentView: UIView!
 
+	@IBOutlet var gradientView: UIView!
+	var gradientLayer = CAGradientLayer()
+
+	public var barWidthScale: CGFloat = 1.0 {
+		didSet {
+			self.barWidthScale = self.barWidthScale > 1.0 ? 1.0 : self.barWidthScale < 0 ? 0.0 : self.barWidthScale
+		}
+	}
+
+	public var graphState: GraphGradientState = .gray {
+		didSet {
+			gradientLayer.locations = [0.0, 1.0]
+			gradientLayer.colors = self.graphState.gradientColorsForGraph()
+		}
+	}
 
 	open override func awakeFromNib() {
 		resetCells()
 		resetGraph()
+		gradientLayer.frame = self.bounds
+		self.gradientView.layer.addSublayer(gradientLayer)
+		self.graphState = .gray
 	}
 
 	open static func create(_ inView: UIView? = nil) -> GraphViewContainer? {
@@ -141,6 +184,7 @@ extension GraphViewContainer {
 	}
 
 	func generateGraph(_ data: [GraphDataObject]) {
+		
 
 		let range = GraphRange(min: 0.0, max: 100.0)
 
@@ -148,16 +192,19 @@ extension GraphViewContainer {
 
 		let graphView = graph.view(graphScrollContentView.bounds)
 
+		let dataCount = data.count
+		let graphWidth = self.bounds.size.width
+
+
 		let _ = graphView.barGraphConfiguration { () -> BarGraphViewConfig in
 			var config = BarGraphViewConfig()
 
-			let color1 = GraphViewContainer.TopGradientColor
-			let color2 = GraphViewContainer.BottomGradientColor
-
-			config.barColor = GraphColorType.gradation(color2 ,color1)
+			let colors = self.graphState.gradientColorsForBar()
+			config.barColor = GraphColorType.gradation(colors)
 
 			config.textVisible = false
-			config.barWidthScale = 1
+
+			config.barWidthScale = self.barWidthScale
 
 			return config
 		}

@@ -11,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZn-3Z-Pvn" customClass="GraphViewContainer" customModule="SSChartView" customModuleProvider="target">
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECZ-Sr-EtP">
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zN8-td-tlL" userLabel="MarginView">
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cc1-n6-9nP" userLabel="TopView">
@@ -173,10 +176,14 @@
             </subviews>
             <color key="backgroundColor" red="0.92549020049999997" green="0.93725490570000003" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="ECZ-Sr-EtP" firstAttribute="centerY" secondItem="nZn-3Z-Pvn" secondAttribute="centerY" id="374-4E-te0"/>
                 <constraint firstItem="zN8-td-tlL" firstAttribute="top" secondItem="nZn-3Z-Pvn" secondAttribute="top" constant="10" id="7HS-Dn-fua"/>
+                <constraint firstItem="ECZ-Sr-EtP" firstAttribute="centerX" secondItem="nZn-3Z-Pvn" secondAttribute="centerX" id="FDh-YA-lPq"/>
+                <constraint firstItem="ECZ-Sr-EtP" firstAttribute="height" secondItem="nZn-3Z-Pvn" secondAttribute="height" id="GAm-ek-qx9"/>
                 <constraint firstAttribute="bottom" secondItem="zN8-td-tlL" secondAttribute="bottom" constant="10" id="Sg3-Xa-SqJ"/>
                 <constraint firstAttribute="width" secondItem="nZn-3Z-Pvn" secondAttribute="height" multiplier="9:5" id="et5-jm-yM7"/>
                 <constraint firstAttribute="trailing" secondItem="zN8-td-tlL" secondAttribute="trailing" constant="10" id="jb2-ix-fjC"/>
+                <constraint firstItem="ECZ-Sr-EtP" firstAttribute="width" secondItem="nZn-3Z-Pvn" secondAttribute="width" id="mR1-pn-yQ3"/>
                 <constraint firstItem="zN8-td-tlL" firstAttribute="leading" secondItem="nZn-3Z-Pvn" secondAttribute="leading" constant="10" id="xKK-zq-mh9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -190,6 +197,7 @@
                 <outlet property="averageSubtitleLabel" destination="c0A-eq-Aid" id="A36-7j-yS1"/>
                 <outlet property="averageTitleLabel" destination="TpE-mw-K7d" id="Ud9-X0-khL"/>
                 <outlet property="bottomView" destination="YUB-Bb-0NJ" id="PWO-4z-saU"/>
+                <outlet property="gradientView" destination="ECZ-Sr-EtP" id="mOJ-8S-WpJ"/>
                 <outlet property="graphContentHeightConstraint" destination="9EV-N0-UAI" id="gT8-OO-zGY"/>
                 <outlet property="graphContentWidthConstraint" destination="uJ9-xy-n1d" id="LjV-pL-9dp"/>
                 <outlet property="graphHolder" destination="32l-0q-GjS" id="cVo-mQ-Jba"/>

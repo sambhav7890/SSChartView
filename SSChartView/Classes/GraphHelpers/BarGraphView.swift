@@ -11,7 +11,7 @@ import UIKit
 public enum GraphColorType {
     case
     mat(UIColor),
-    gradation(UIColor, UIColor)
+    gradation([CGColor])
 }
 
 extension UIColor {
@@ -20,8 +20,9 @@ extension UIColor {
         return .mat(self)
     }
 
-	static func gradient(_ color1: UIColor, color2: UIColor) -> GraphColorType {
-		return .gradation(color1, color2)
+	static func gradient(_ colors: UIColor ...) -> GraphColorType {
+		let cgColors = colors.map{ $0.cgColor }
+		return .gradation(cgColors)
 	}
 
 	func components() -> [CGFloat] {
@@ -148,10 +149,24 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
 			case let .mat(color):
 				color.setFill()
 				path.fill()
-			case let .gradation(color1, color2):
-				let colors = [color1.cgColor, color2.cgColor]
+			case let .gradation(colors):
 				let colorSpace = CGColorSpaceCreateDeviceRGB()
-				let colorLocations:[CGFloat] = [0.0, 1.0]
+
+				let fractionCount = colors.count - 1
+				var colorLocations = [CGFloat]()
+				if fractionCount > 0 {
+					let fraction = 1.0 / CGFloat(fractionCount)
+
+					var lastColor: CGFloat = 0.0
+
+					while lastColor <= 1.0 {
+						colorLocations.append(lastColor)
+						lastColor += fraction
+					}
+				} else {
+					colorLocations = [0.0]
+				}
+
 				if let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: colorLocations) {
 					let context = UIGraphicsGetCurrentContext()
 					context?.saveGState()
