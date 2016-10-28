@@ -228,7 +228,7 @@ public struct BarGraphApperance {
     public let barColor: UIColor
     public let barWidthScale: CGFloat
     public let valueTextAttributes: GraphTextAttributes?
-    
+
     init(
         barColor: UIColor?,
         barWidthScale: CGFloat?,

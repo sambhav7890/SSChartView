@@ -17,9 +17,11 @@ extension GraphGradientState {
 	func gradientColorsForBar() -> [CGColor] {
 		switch self {
 		case .gray:
-			return [UIColor(rgba: (176,190,197,1.0)), UIColor(rgba: (144,165,174,1.0))].map{$0.cgColor}
+			//Top->Bottom
+			return [UIColor(rgba: (144,165,174,1.0)), UIColor(rgba: (176,190,197,1.0))].map{$0.cgColor}
 		case .green:
-			return [UIColor(rgba: (167,213,169,1.0)), UIColor(rgba: (200,230,201,1.0))].map{$0.cgColor}
+			return [UIColor(rgba: (200,230,201,1.0)), UIColor(rgba: (167,213,169,1.0))].map{$0.cgColor}
+//			return [UIColor.red, UIColor.blue].map{$0.cgColor}
 		}
 		return []
 	}
@@ -30,6 +32,7 @@ extension GraphGradientState {
 			return [UIColor(rgba: (236,239,241,1.0)), UIColor(rgba: (236,239,241,1.0))].map{$0.cgColor}
 		case .green:
 			return [UIColor(rgba: (120,206,125,1.0)),UIColor(rgba: (67,160,71,1.0))].map{$0.cgColor}
+//			return [UIColor.red, UIColor.blue].map{$0.cgColor}
 		}
 
 		return []
@@ -99,6 +102,9 @@ extension GraphGradientState {
 		if let labelView = view as? UILabel {
 			labelView.textColor = colorAlpha.0
 			labelView.alpha = colorAlpha.1
+		} else if let legendView = view as? ExpandableLegendView {
+			legendView.legendLabel.textColor = colorAlpha.0
+			legendView.legendLabel.alpha = colorAlpha.1
 		} else {
 			view.backgroundColor = colorAlpha.0
 			view.alpha = colorAlpha.1
@@ -145,22 +151,16 @@ open class GraphViewContainer: UIView {
 	@IBOutlet var gradientView: UIView!
 	var gradientLayer = CAGradientLayer()
 
-	public var barWidthScale: CGFloat = 1.0 {
-		didSet {
-			self.barWidthScale = self.barWidthScale > 1.0 ? 1.0 : self.barWidthScale < 0 ? 0.0 : self.barWidthScale
-		}
-	}
-
-	public var graphState: GraphGradientState = .gray {
-		didSet {
-			updateConfigsForState()
-		}
-	}
+	public var graphState: GraphGradientState = .gray
 
 	func updateConfigsForState() {
 
 		//Background Gradient
 		let colors = self.graphState.gradientColorsForGraph()
+
+		gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+		gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+
 		gradientLayer.locations = UIColor.colorGradientLocations(forColors: colors).map { (gradLocation) in
 			return NSNumber(value: Double(gradLocation))
 		}
@@ -193,10 +193,15 @@ open class GraphViewContainer: UIView {
 
 	}
 
+	open override func layoutSubviews() {
+		super.layoutSubviews()
+		gradientLayer.frame = self.gradientView.bounds
+	}
+
 	open override func awakeFromNib() {
 		resetCells()
 		resetGraph()
-		gradientLayer.frame = self.bounds
+		gradientLayer.frame = self.gradientView.bounds
 		self.gradientView.layer.addSublayer(gradientLayer)
 		self.graphState = .gray
 	}
@@ -227,7 +232,7 @@ open class GraphViewContainer: UIView {
 
 
 	open fileprivate (set) var legendCells: [ExpandableLegendView] = []
-	internal var graphView: BarGraphView<Int,Double>?
+	internal var graphView: GraphView<Int,Double>?
 
 	open func resetCells() {
 		self.legendScrollContentView.subviews.forEach { $0.removeFromSuperview() }
@@ -311,17 +316,14 @@ extension GraphViewContainer {
 		let graphWidth = self.bounds.size.width
 
 		graphView.translatesAutoresizingMaskIntoConstraints = false
-		self.graphView = graphView as? BarGraphView<Int,Double>
+		self.graphView = graphView
 		graphView.addAsConstrainedSubview(forContainer: graphScrollContentView)
-		updateBarGraphConfig()
+		updateConfigsForState()
 	}
 
 	func updateBarGraphConfig() {
-		let config = self.generateBarGraphConfig()
-		self.graphView?.setBarGraphViewConfig(config)
-	}
 
-	func generateBarGraphConfig() -> BarGraphViewConfig {
+		let _ = self.graphView?.barGraphConfiguration { () -> BarGraphViewConfig in
 			var config = BarGraphViewConfig()
 
 			let colors = self.graphState.gradientColorsForBar()
@@ -329,9 +331,12 @@ extension GraphViewContainer {
 
 			config.textVisible = false
 
-			config.barWidthScale = self.barWidthScale
+			config.barWidthScale = 0.2
+			config.actualBarWidth = 8.0 // 8px bars
 
 			return config
+		}
+		self.setNeedsLayout()
 	}
 }
 

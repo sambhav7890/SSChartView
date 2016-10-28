@@ -35,6 +35,7 @@ extension UIColor {
 extension CGRect {
 	var ending: CGPoint {
 		var point = self.origin
+//Since we want only y gradient and not radial/diagonal
 //		point.x += self.size.width
 		point.y += self.size.height
 		return point
@@ -49,6 +50,7 @@ public struct BarGraphViewConfig {
     public var textVisible: Bool
     public var zeroLineVisible: Bool
     public var barWidthScale: CGFloat
+	public var actualBarWidth: CGFloat? = nil
     public var contentInsets: UIEdgeInsets
     
     public init(
@@ -117,7 +119,8 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
         let max = graph.range.max
         
         let sectionWidth = rect.size.width / CGFloat(graph.units.count)
-        let width = sectionWidth * self.config.barWidthScale
+        let width = self.config.actualBarWidth ?? (sectionWidth * self.config.barWidthScale)
+
         
         let zero = rect.size.height / CGFloat((max - min).floatValue()) * CGFloat(min.floatValue())
 

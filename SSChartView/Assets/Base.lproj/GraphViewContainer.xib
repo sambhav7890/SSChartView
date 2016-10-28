@@ -12,7 +12,7 @@
         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZn-3Z-Pvn" customClass="GraphViewContainer" customModule="SSChartView" customModuleProvider="target">
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECZ-Sr-EtP">
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.92549019607843142" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zN8-td-tlL" userLabel="MarginView">
                     <subviews>
@@ -39,7 +39,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="c0A-eq-Aid" firstAttribute="leading" secondItem="IBW-Fe-rad" secondAttribute="trailing" id="0zm-yx-AMN"/>
                                 <constraint firstItem="k6a-Rd-AWp" firstAttribute="leading" secondItem="cc1-n6-9nP" secondAttribute="leading" id="2lM-fj-jgg"/>
@@ -59,8 +59,8 @@
                                 <constraint firstItem="k6a-Rd-AWp" firstAttribute="top" secondItem="cc1-n6-9nP" secondAttribute="top" id="z11-IB-xzy"/>
                             </constraints>
                         </view>
-                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-1g-6OS" userLabel="Separator">
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-1g-6OS" userLabel="Separator">
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="pxN-ON-Mrz"/>
                             </constraints>
@@ -84,7 +84,7 @@
                                     </constraints>
                                 </scrollView>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="Tp9-h3-2lt" firstAttribute="top" secondItem="32l-0q-GjS" secondAttribute="top" id="1Fw-5j-pY4"/>
                                 <constraint firstAttribute="bottom" secondItem="Tp9-h3-2lt" secondAttribute="bottom" id="2ae-SL-ZVy"/>
@@ -106,7 +106,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Vt0-xa-B5E" secondAttribute="bottom" constant="5" id="3vO-9f-ayr"/>
                                 <constraint firstAttribute="trailing" secondItem="Vt0-xa-B5E" secondAttribute="trailing" id="LIk-KI-vbP"/>
@@ -114,8 +114,8 @@
                                 <constraint firstItem="aER-45-rZc" firstAttribute="top" secondItem="YYL-jx-cyS" secondAttribute="top" constant="5" id="gvS-yd-M3K"/>
                             </constraints>
                         </view>
-                        <view alpha="0.10000000149011612" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOX-XB-Izp" userLabel="Separator">
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOX-XB-Izp" userLabel="Separator">
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="nPC-X5-cfv"/>
                             </constraints>
@@ -125,10 +125,10 @@
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rt5-FV-SUa">
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdX-a9-H2h">
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="hdX-a9-H2h" firstAttribute="width" secondItem="Rt5-FV-SUa" secondAttribute="width" id="Ghm-jD-P0t"/>
                                         <constraint firstAttribute="trailing" secondItem="hdX-a9-H2h" secondAttribute="trailing" id="P8x-Jm-XGA"/>
@@ -139,7 +139,7 @@
                                     </constraints>
                                 </scrollView>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="Rt5-FV-SUa" secondAttribute="trailing" id="0K9-bJ-9ag"/>
                                 <constraint firstItem="Rt5-FV-SUa" firstAttribute="top" secondItem="YUB-Bb-0NJ" secondAttribute="top" id="gR9-H5-Lq9"/>
@@ -148,7 +148,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="YYL-jx-cyS" firstAttribute="centerX" secondItem="32l-0q-GjS" secondAttribute="centerX" id="2Jg-U5-0F7"/>
                         <constraint firstItem="YUB-Bb-0NJ" firstAttribute="leading" secondItem="32l-0q-GjS" secondAttribute="leading" id="64L-5X-dB5"/>
