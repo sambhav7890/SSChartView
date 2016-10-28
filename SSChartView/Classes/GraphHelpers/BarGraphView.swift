@@ -105,7 +105,7 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
             height: self.frame.size.height - self.config.contentInsets.verticalMarginsTotal()
         )
     }
-    
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -151,22 +151,7 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
 				path.fill()
 			case let .gradation(colors):
 				let colorSpace = CGColorSpaceCreateDeviceRGB()
-
-				let fractionCount = colors.count - 1
-				var colorLocations = [CGFloat]()
-				if fractionCount > 0 {
-					let fraction = 1.0 / CGFloat(fractionCount)
-
-					var lastColor: CGFloat = 0.0
-
-					while lastColor <= 1.0 {
-						colorLocations.append(lastColor)
-						lastColor += fraction
-					}
-				} else {
-					colorLocations = [0.0]
-				}
-
+				let colorLocations = UIColor.colorGradientLocations(forColors: colors)
 				if let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: colorLocations) {
 					let context = UIGraphicsGetCurrentContext()
 					context?.saveGState()

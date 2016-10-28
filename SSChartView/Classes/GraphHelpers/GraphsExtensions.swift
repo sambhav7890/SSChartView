@@ -115,6 +115,31 @@ enum DefaultColorType {
 
 public extension UIColor {
 
+	public static func colorGradientLocations(forColors colors: [Any]) -> [CGFloat] {
+		let fractionCount = colors.count - 1
+		if fractionCount > 0 {
+			let fraction = 1.0 / CGFloat(fractionCount)
+
+			var colorLocations: [CGFloat] = []
+			var lastColor: CGFloat = 0.0
+
+			while lastColor <= 1.0 {
+				colorLocations.append(lastColor)
+				lastColor += fraction
+			}
+
+			return colorLocations
+		} else {
+			return [0.0]
+		}
+	}
+
+	public convenience init(gray: Int = 1, _ alphaPercent: Int = 100) {
+		let white = CGFloat(gray) / 255.0
+		let alphaVal = CGFloat(alphaPercent) / 100.0
+		self.init(white: white, alpha: alphaVal)
+	}
+
 	public convenience init(rgba: (Int,Int,Int,Float) = (0,0,0,1.0)) {
 		let red = CGFloat(rgba.0) / 255.0
 		let green = CGFloat(rgba.1) / 255.0

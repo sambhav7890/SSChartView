@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -196,6 +196,7 @@
             <connections>
                 <outlet property="averageSubtitleLabel" destination="c0A-eq-Aid" id="A36-7j-yS1"/>
                 <outlet property="averageTitleLabel" destination="TpE-mw-K7d" id="Ud9-X0-khL"/>
+                <outlet property="bottomGraphSeparator" destination="SOX-XB-Izp" id="R4e-hr-Fph"/>
                 <outlet property="bottomView" destination="YUB-Bb-0NJ" id="PWO-4z-saU"/>
                 <outlet property="gradientView" destination="ECZ-Sr-EtP" id="mOJ-8S-WpJ"/>
                 <outlet property="graphContentHeightConstraint" destination="9EV-N0-UAI" id="gT8-OO-zGY"/>
@@ -210,6 +211,7 @@
                 <outlet property="minLabel" destination="Vt0-xa-B5E" id="SPL-XV-CuX"/>
                 <outlet property="subtitleLabel" destination="IBW-Fe-rad" id="a6r-lV-StL"/>
                 <outlet property="titleLabel" destination="k6a-Rd-AWp" id="iO4-Ld-Ylt"/>
+                <outlet property="topGraphSeparator" destination="vVv-1g-6OS" id="mZx-ZD-0qB"/>
                 <outlet property="topView" destination="cc1-n6-9nP" id="zZ4-LA-dWw"/>
             </connections>
         </view>

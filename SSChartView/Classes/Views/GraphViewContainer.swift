@@ -11,7 +11,9 @@ import UIKit
 public enum GraphGradientState {
 	case gray
 	case green
+}
 
+extension GraphGradientState {
 	func gradientColorsForBar() -> [CGColor] {
 		switch self {
 		case .gray:
@@ -32,7 +34,76 @@ public enum GraphGradientState {
 
 		return []
 	}
+}
 
+//Colors
+extension GraphGradientState {
+
+	private var graphTitleColorAlpha: (UIColor, CGFloat) {
+		switch self {
+		case .gray: return (UIColor(gray: 79), 1)
+		case .green: return (UIColor.white, 1.0)
+		}
+	}
+
+	private var graphSubTitleColorAlpha: (UIColor, CGFloat) {
+		switch self {
+		case .gray: return (UIColor.black, 0.3)
+		case .green: return (UIColor.white, 0.5)
+		}
+	}
+
+	private var graphLegendColorAlpha: (UIColor, CGFloat) {
+		switch self {
+		case .gray: return (UIColor(gray: 79), 0.3)
+		case .green: return (UIColor.white, 1.0)
+		}
+	}
+
+	private var graphSeparatorColorAlpha: (UIColor, CGFloat) {
+		switch self {
+		case .gray: return (UIColor.black, 0.1)
+		case .green: return (UIColor.white, 1.0)
+		}
+	}
+
+	private var graphRangeColorAlpha: (UIColor, CGFloat) {
+		switch self {
+		case .gray: return (UIColor(gray: 79), 0.4)
+		case .green: return (UIColor.white, 1.0)
+		}
+	}
+
+
+	enum GraphGradientStateConfigView {
+		case titleLabel, subtitleLabel, legend, separator, rangeLabel
+	}
+
+	func configure(view: UIView, with type: GraphGradientStateConfigView) {
+
+		let colorAlpha: (UIColor, CGFloat)
+
+		switch type {
+		case .titleLabel:
+			colorAlpha = graphTitleColorAlpha
+		case .subtitleLabel:
+			colorAlpha = graphSubTitleColorAlpha
+		case .legend:
+			colorAlpha = graphLegendColorAlpha
+		case .separator:
+			colorAlpha = graphSeparatorColorAlpha
+		case .rangeLabel:
+			colorAlpha = graphRangeColorAlpha
+		}
+
+		if let labelView = view as? UILabel {
+			labelView.textColor = colorAlpha.0
+			labelView.alpha = colorAlpha.1
+		} else {
+			view.backgroundColor = colorAlpha.0
+			view.alpha = colorAlpha.1
+		}
+	}
 }
 
 open class GraphViewContainer: UIView {
@@ -57,8 +128,14 @@ open class GraphViewContainer: UIView {
 	@IBOutlet var graphScroller: UIScrollView!
 	@IBOutlet var graphScrollContentView: UIView!
 
+	//Separators
+	@IBOutlet weak var topGraphSeparator: UIView!
+	@IBOutlet weak var bottomGraphSeparator: UIView!
+
+	//Constraints
 	@IBOutlet var graphContentWidthConstraint: NSLayoutConstraint!
 	@IBOutlet var graphContentHeightConstraint: NSLayoutConstraint!
+
 
 	//Bottom Legend
 	@IBOutlet var bottomView: UIView!
@@ -76,9 +153,44 @@ open class GraphViewContainer: UIView {
 
 	public var graphState: GraphGradientState = .gray {
 		didSet {
-			gradientLayer.locations = [0.0, 1.0]
-			gradientLayer.colors = self.graphState.gradientColorsForGraph()
+			updateConfigsForState()
 		}
+	}
+
+	func updateConfigsForState() {
+
+		//Background Gradient
+		let colors = self.graphState.gradientColorsForGraph()
+		gradientLayer.locations = UIColor.colorGradientLocations(forColors: colors).map { (gradLocation) in
+			return NSNumber(value: Double(gradLocation))
+		}
+
+		gradientLayer.colors = colors
+
+		//Graph Bars
+		self.updateBarGraphConfig()
+
+		//Legend Labels
+		self.legendCells.forEach { (view) in
+			self.graphState.configure(view: view, with: .legend)
+		}
+
+		//TitleLabels
+		self.graphState.configure(view: self.titleLabel, with: .titleLabel)
+		self.graphState.configure(view: self.averageTitleLabel, with: .titleLabel)
+
+		//SubtitleLabels
+		self.graphState.configure(view: self.subtitleLabel, with: .subtitleLabel)
+		self.graphState.configure(view: self.averageSubtitleLabel, with: .subtitleLabel)
+
+		//RangeLabels
+		self.graphState.configure(view: self.maxLabel, with: .rangeLabel)
+		self.graphState.configure(view: self.minLabel, with: .rangeLabel)
+
+		//Separators
+		self.graphState.configure(view: self.topGraphSeparator, with: .separator)
+		self.graphState.configure(view: self.bottomGraphSeparator, with: .separator)
+
 	}
 
 	open override func awakeFromNib() {
@@ -145,11 +257,14 @@ extension GraphViewContainer {
 		for (index, aData) in data.enumerated() {
 			let currentOrigin = CGPoint(x: (each * CGFloat(index)), y: 0)
 			let legendFrame = CGRect(origin: currentOrigin, size: legendSize)
+
 			guard let legendView = ExpandableLegendView.create() else { continue }
+
 			legendView.frame = legendFrame
 
 			let key = aData
 			legendView.legendLabel.text = key
+			self.graphState.configure(view: legendView.legendLabel, with: .legend)
 
 			legendScrollContentView.addSubview(legendView)
 
@@ -195,8 +310,18 @@ extension GraphViewContainer {
 		let dataCount = data.count
 		let graphWidth = self.bounds.size.width
 
+		graphView.translatesAutoresizingMaskIntoConstraints = false
+		self.graphView = graphView as? BarGraphView<Int,Double>
+		graphView.addAsConstrainedSubview(forContainer: graphScrollContentView)
+		updateBarGraphConfig()
+	}
 
-		let _ = graphView.barGraphConfiguration { () -> BarGraphViewConfig in
+	func updateBarGraphConfig() {
+		let config = self.generateBarGraphConfig()
+		self.graphView?.setBarGraphViewConfig(config)
+	}
+
+	func generateBarGraphConfig() -> BarGraphViewConfig {
 			var config = BarGraphViewConfig()
 
 			let colors = self.graphState.gradientColorsForBar()
@@ -207,11 +332,6 @@ extension GraphViewContainer {
 			config.barWidthScale = self.barWidthScale
 
 			return config
-		}
-
-		graphView.translatesAutoresizingMaskIntoConstraints = false
-		self.graphView = graphView as? BarGraphView<Int,Double>
-		graphView.addAsConstrainedSubview(forContainer: graphScrollContentView)
 	}
 }
 
