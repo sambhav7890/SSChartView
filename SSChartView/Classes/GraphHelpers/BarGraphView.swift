@@ -21,6 +21,9 @@ extension UIColor {
     }
 
 	static func gradient(_ colors: UIColor ...) -> GraphColorType {
+		if colors.count == 1 {
+			return .mat(colors.first!)
+		}
 		let cgColors = colors.map{ $0.cgColor }
 		return .gradation(cgColors)
 	}
@@ -52,6 +55,7 @@ public struct BarGraphViewConfig {
     public var barWidthScale: CGFloat
 	public var actualBarWidth: CGFloat? = nil
     public var contentInsets: UIEdgeInsets
+	public var roundedCorners: Bool = false
     
     public init(
         barColor: UIColor? = nil,
@@ -146,7 +150,16 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
 
 			let bezierRect = CGRect(x: bezierX, y: bezierY, width: width, height: height)
 
-			let path = UIBezierPath(rect: bezierRect)
+			var path: UIBezierPath
+
+			if self.config.roundedCorners {
+				path = UIBezierPath(roundedRect: bezierRect, cornerRadius: bezierRect.size.width/2)
+			} else {
+				path = UIBezierPath(rect: bezierRect)
+			}
+
+			path.lineCapStyle = CGLineCap.round
+			path.lineJoinStyle = CGLineJoin.round
 
 			switch self.config.barColor {
 			case let .mat(color):

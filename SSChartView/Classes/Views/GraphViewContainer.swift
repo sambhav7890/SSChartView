@@ -14,14 +14,13 @@ public enum GraphGradientState {
 }
 
 extension GraphGradientState {
-	func gradientColorsForBar() -> [CGColor] {
+	func gradientColorsForBar() -> [UIColor] {
 		switch self {
 		case .gray:
 			//Top->Bottom
-			return [UIColor(rgba: (144,165,174,1.0)), UIColor(rgba: (176,190,197,1.0))].map{$0.cgColor}
+			return [UIColor(rgba: (144,165,174,1.0)), UIColor(rgba: (176,190,197,1.0))]
 		case .green:
-			return [UIColor(rgba: (200,230,201,1.0)), UIColor(rgba: (167,213,169,1.0))].map{$0.cgColor}
-//			return [UIColor.red, UIColor.blue].map{$0.cgColor}
+			return [UIColor.white.withAlphaComponent(0.4)]
 		}
 		return []
 	}
@@ -66,14 +65,14 @@ extension GraphGradientState {
 	private var graphSeparatorColorAlpha: (UIColor, CGFloat) {
 		switch self {
 		case .gray: return (UIColor.black, 0.1)
-		case .green: return (UIColor.white, 1.0)
+		case .green: return (UIColor.white, 0.1)
 		}
 	}
 
 	private var graphRangeColorAlpha: (UIColor, CGFloat) {
 		switch self {
 		case .gray: return (UIColor(gray: 79), 0.4)
-		case .green: return (UIColor.white, 1.0)
+		case .green: return (UIColor.white, 0.4)
 		}
 	}
 
@@ -137,10 +136,6 @@ open class GraphViewContainer: UIView {
 	//Separators
 	@IBOutlet weak var topGraphSeparator: UIView!
 	@IBOutlet weak var bottomGraphSeparator: UIView!
-
-	//Constraints
-	@IBOutlet var graphContentWidthConstraint: NSLayoutConstraint!
-	@IBOutlet var graphContentHeightConstraint: NSLayoutConstraint!
 
 
 	//Bottom Legend
@@ -327,12 +322,18 @@ extension GraphViewContainer {
 			var config = BarGraphViewConfig()
 
 			let colors = self.graphState.gradientColorsForBar()
-			config.barColor = GraphColorType.gradation(colors)
 
+			if let firstColor = colors.first, colors.count == 1 {
+				config.barColor = firstColor.matColor()
+			} else {
+				config.barColor = GraphColorType.gradation(colors.map{$0.cgColor})
+			}
+
+			config.roundedCorners = true
 			config.textVisible = false
 
 			config.barWidthScale = 0.2
-			config.actualBarWidth = 8.0 // 8px bars
+			config.actualBarWidth = 4.0 // 8px bars
 
 			return config
 		}
