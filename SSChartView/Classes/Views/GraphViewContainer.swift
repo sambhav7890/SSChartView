@@ -22,7 +22,6 @@ extension GraphGradientState {
 		case .green:
 			return [UIColor.white.withAlphaComponent(0.4)]
 		}
-		return []
 	}
 
 	func gradientColorsForGraph() -> [CGColor] {
@@ -31,10 +30,7 @@ extension GraphGradientState {
 			return [UIColor(rgba: (236,239,241,1.0)), UIColor(rgba: (236,239,241,1.0))].map{$0.cgColor}
 		case .green:
 			return [UIColor(rgba: (120,206,125,1.0)),UIColor(rgba: (67,160,71,1.0))].map{$0.cgColor}
-//			return [UIColor.red, UIColor.blue].map{$0.cgColor}
 		}
-
-		return []
 	}
 }
 
@@ -300,17 +296,14 @@ extension GraphViewContainer {
 
 	func generateGraph(_ data: [GraphDataObject]) {
 		
-
 		let range = GraphRange(min: 0.0, max: 100.0)
 
 		let graph = data.barGraph(range) { (unit, totalValue) -> String? in return "" }
 
 		let graphView = graph.view(graphScrollContentView.bounds)
 
-		let dataCount = data.count
-		let graphWidth = self.bounds.size.width
-
 		graphView.translatesAutoresizingMaskIntoConstraints = false
+
 		self.graphView = graphView
 		graphView.addAsConstrainedSubview(forContainer: graphScrollContentView)
 		updateConfigsForState()
