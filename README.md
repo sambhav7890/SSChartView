@@ -1,6 +1,6 @@
 # SSChartView
 
-[![CI Status](http://img.shields.io/travis/Sambhav Shah/SSChartView.svg?style=flat)](https://travis-ci.org/sambhav7890/SSChartView)
+[![Build Status](https://travis-ci.org/sambhav7890/SSChartView.svg?branch=master)](https://travis-ci.org/sambhav7890/SSChartView)
 
 ## Example
 
