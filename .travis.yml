@@ -25,4 +25,5 @@ branches:only:
   - develop
 
 script:
-- set -o pipefail && xcodebuild test -workspace Example/SSChartView.xcworkspace -scheme SSChartView-Example -destination 'platform=iOS Simulator,name=iPhone 6s,OS=10.0' -destination 'platform=iOS Simulator,name=iPhone 4s,OS=8.4' -configuration Debug clean build | xcpretty
+- travis_wait set -o pipefail && xcodebuild test -workspace Example/SSChartView.xcworkspace -scheme SSChartView-Example -destination 'platform=iOS Simulator,name=iPhone 6s,OS=10.0' -configuration Debug clean build | xcpretty
+- travis_wait set -o pipefail && xcodebuild test -workspace Example/SSChartView.xcworkspace -scheme SSChartView-Example -destination 'platform=iOS Simulator,name=iPhone 4s,OS=8.4' -configuration Debug clean build | xcpretty
