@@ -190,11 +190,15 @@ open class GraphViewContainer: UIView {
 	}
 
 	open override func awakeFromNib() {
+		super.awakeFromNib()
 		resetCells()
 		resetGraph()
 		gradientLayer.frame = self.gradientView.bounds
-		self.gradientView.layer.addSublayer(gradientLayer)
-		self.graphState = .gray
+		defer { self.graphState = .gray }
+		guard let superlayer = gradientLayer.superlayer else {
+			self.gradientView.layer.addSublayer(gradientLayer)
+			return
+		}
 	}
 
 	open static func create(_ inView: UIView? = nil) -> GraphViewContainer? {
