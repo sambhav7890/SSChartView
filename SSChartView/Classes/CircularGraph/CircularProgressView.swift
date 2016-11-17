@@ -10,7 +10,6 @@
 
 /*
 
-
 progress.startAngle = -90
 progress.progressThickness = 0.2
 progress.trackThickness = 0.2

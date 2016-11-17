@@ -8,33 +8,6 @@
 
 import UIKit
 
-public enum GraphColorType {
-    case
-    mat(UIColor),
-    gradation([CGColor])
-}
-
-extension UIColor {
-    
-    func matColor() -> GraphColorType {
-        return .mat(self)
-    }
-
-	static func gradient(_ colors: UIColor ...) -> GraphColorType {
-		if colors.count == 1 {
-			return .mat(colors.first!)
-		}
-		let cgColors = colors.map{ $0.cgColor }
-		return .gradation(cgColors)
-	}
-
-	func components() -> [CGFloat] {
-		let cgColor = self.cgColor
-		let components = cgColor.components
-		return components ?? [0, 0, 0, 0]
-	}
-}
-
 extension CGRect {
 	var ending: CGPoint {
 		var point = self.origin
