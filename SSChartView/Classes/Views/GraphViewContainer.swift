@@ -95,7 +95,7 @@ open class GraphViewContainer: UIView {
 		resetCells()
 		resetGraph()
 		gradientLayer.frame = self.gradientView.bounds
-		guard let superlayer = gradientLayer.superlayer else {
+		guard let _ = gradientLayer.superlayer else {
 			self.gradientView.layer.addSublayer(gradientLayer)
 			self.graphState = .gray
 			return
