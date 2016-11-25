@@ -40,6 +40,7 @@ open class UICircularProgressView: UIView {
 	//================
 	// MARK: - Public Variables
 
+	//Current Angle
 	@IBInspectable open var angle: Double = 0 {
 		didSet {
 			if self.isAnimating() {
@@ -59,6 +60,7 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	//Fill is clockwise/anticlockwise
 	@IBInspectable open var clockwise: Bool = true {
 		didSet {
 			progressLayer.clockwise = clockwise
@@ -72,18 +74,21 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	//Color Blending
 	@IBInspectable open var lerpColorMode: Bool = false {
 		didSet {
 			progressLayer.lerpColorMode = lerpColorMode
 		}
 	}
 
+	//Movement On Gradients
 	@IBInspectable open var gradientRotateSpeed: CGFloat = 0 {
 		didSet {
 			progressLayer.gradientRotateSpeed = gradientRotateSpeed
 		}
 	}
 
+	//Glow around Circular Track
 	@IBInspectable open var glowAmount: CGFloat = 0.0 {//Between 0 and 1
 		didSet {
 			glowAmount = Utility.clamp(glowAmount, minMax: (0, 1))
@@ -91,12 +96,14 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	//Glow direction
 	@IBInspectable open var glowMode: UICircularProgressGlowMode = .noGlow {
 		didSet {
 			progressLayer.glowMode = glowMode
 		}
 	}
 
+	// inner ring Thickness
 	@IBInspectable open var progressThickness: CGFloat = 0.4 {//Between 0 and 1
 		didSet {
 			progressThickness = Utility.clamp(progressThickness, minMax: (0, 1))
@@ -104,6 +111,7 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	// Outer ring Thickness
 	@IBInspectable open var trackThickness: CGFloat = 0.5 {//Between 0 and 1
 		didSet {
 			trackThickness = Utility.clamp(trackThickness, minMax: (0, 1))
@@ -111,6 +119,7 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	//Outer Ring Background
 	@IBInspectable open var trackColor: UIColor = .black {
 		didSet {
 			progressLayer.trackColor = trackColor
@@ -118,6 +127,15 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	//Percent Text Color
+	@IBInspectable open var textColor: UIColor? {
+		didSet {
+			progressLayer.textColor = textColor
+			progressLayer.setNeedsDisplay()
+		}
+	}
+
+	//Central Circle Fill
 	@IBInspectable open var progressInsideFillColor: UIColor? = nil {
 		didSet {
 			if let color = progressInsideFillColor {
@@ -128,6 +146,7 @@ open class UICircularProgressView: UIView {
 		}
 	}
 
+	//Inner Ring Gradient Color Array
 	@IBInspectable open var progressColors: [UIColor]! {
 		get {
 			return progressLayer.colorsArray
@@ -355,6 +374,7 @@ open class UICircularProgressView: UIView {
 				invalidateGradientCache()
 			}
 		}
+		var textColor: UIColor?
 		fileprivate var gradientCache: CGGradient?
 		fileprivate var locationsCache: [CGFloat]?
 
@@ -395,6 +415,7 @@ open class UICircularProgressView: UIView {
 			trackColor = progressLayer.trackColor
 			colorsArray = progressLayer.colorsArray
 			progressInsideFillColor = progressLayer.progressInsideFillColor
+			textColor = progressLayer.textColor
 		}
 
 		override init() {
@@ -528,7 +549,7 @@ open class UICircularProgressView: UIView {
 			let valueFontSize: CGFloat = size.height / 5
 			let font = UIFont.systemFont(ofSize: valueFontSize)
 
-			let color = self.colorsArray.first ?? UIColor.black
+			let color = self.textColor ?? self.colorsArray.first ?? UIColor.black
 			let valueFontAttributes = [NSFontAttributeName: font,
 			                           NSForegroundColorAttributeName: color,
 			                           NSParagraphStyleAttributeName: textStyle]
