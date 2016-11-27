@@ -219,7 +219,10 @@ open class UICircularProgressView: UIView {
 
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		radius = (frame.size.width/2.0) * 0.8
+
+		//We always apply a 20% padding, stopping glows from being clipped
+		let radiusFactor: CGFloat = self.glowMode != .noGlow ? 0.8 : 1.0
+		radius = (frame.size.width/2.0) * radiusFactor
 	}
 
 	open override func didMoveToWindow() {
@@ -302,7 +305,9 @@ open class UICircularProgressView: UIView {
 	// MARK: - Private Setup Methods
 
 	fileprivate func setInitialValues() {
-		radius = (frame.size.width/2.0) * 0.8 //We always apply a 20% padding, stopping glows from being clipped
+		//We always apply a 20% padding, stopping glows from being clipped
+		let radiusFactor: CGFloat = self.glowMode != .noGlow ? 0.8 : 1.0
+		radius = (frame.size.width/2.0) * radiusFactor
 		backgroundColor = .clear
 		setColors(.white, .cyan)
 	}
