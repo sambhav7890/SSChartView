@@ -9,15 +9,38 @@
 import UIKit
 
 enum DefaultColorType {
-	case bar, barText
+	case bar, line, barText, lineText, pieText
 
 	func color() -> UIColor {
 		switch self {
 		case .bar:      return UIColor(hex: "#4DC2AB")
+		case .line:     return UIColor(hex: "#FF0066")
 		case .barText:  return UIColor(hex: "#333333")
+		case .lineText: return UIColor(hex: "#333333")
+		case .pieText:  return UIColor(hex: "#FFFFFF")
 		}
 	}
+
+	static func pieColors(_ count: Int) -> [UIColor] {
+
+		func randomArray(_ arr: [Int]) -> [Int] {
+			if arr.count <= 0 {
+				return []
+			}
+			let randomIndex = Int(arc4random_uniform(UInt32(arr.count)))
+			var tail = [Int]()
+			for i in 0 ..< arr.count {
+				if i != randomIndex {
+					tail.append(arr[i])
+				}
+			}
+			return [arr[randomIndex]] + randomArray(tail)
+		}
+
+		return Array(0 ..< count).map({ $0 }).map({ UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 0.9, brightness: 0.9, alpha: 1.0) })
+	}
 }
+
 
 public extension UIColor {
 

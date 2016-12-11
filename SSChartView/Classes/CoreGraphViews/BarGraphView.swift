@@ -98,7 +98,6 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
         let sectionWidth = rect.size.width / CGFloat(graph.units.count)
         let width = self.config.actualBarWidth ?? (sectionWidth * self.config.barWidthScale)
 
-        
         let zero = rect.size.height / CGFloat((max - min).floatValue()) * CGFloat(min.floatValue())
 
         graph.units.enumerated().forEach({ (index, u) in

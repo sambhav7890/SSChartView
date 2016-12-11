@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SSChartView'
-  s.version          = '0.2.3'
+  s.version          = '1.0.0'
   s.summary          = 'A short description of SSChartView.'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Simple Bar Graph UI used for charting.
+Simple Bar Graph, Pie Chart, Line Chart UI used for charting.
+Also contains a class to display a circular progress view.
                        DESC
 
   s.homepage         = 'https://github.com/sambhav7890/SSChartView'

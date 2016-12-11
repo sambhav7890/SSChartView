@@ -32,6 +32,10 @@ class ViewController: UIViewController {
 	@IBAction func checkTapped(_ sender: AnyObject) {
 		graphParent?.config()
 	}
+	@IBAction func nextButtonTapped(_ sender: AnyObject) {
+		let controller = GraphCollectionListViewController.controller()
+		self.navigationController?.pushViewController(controller, animated: true)
+	}
 }
 
 

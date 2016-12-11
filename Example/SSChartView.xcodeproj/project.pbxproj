@@ -15,6 +15,9 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7628E0DB44E8A9A30B34A1E7 /* Pods_SSChartView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE23FC243535739463603F77 /* Pods_SSChartView_Example.framework */; };
+		9702CC021DFD439D00DA7F90 /* GraphsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9702CC011DFD439D00DA7F90 /* GraphsListViewController.swift */; };
+		9702CC041DFD43CC00DA7F90 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9702CC031DFD43CC00DA7F90 /* GraphCell.swift */; };
+		9702CC061DFD4F3900DA7F90 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9702CC051DFD4F3900DA7F90 /* DebugViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +44,10 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		9375DFA521946EAF4F57D264 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		9702CC011DFD439D00DA7F90 /* GraphsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsListViewController.swift; sourceTree = "<group>"; };
+		9702CC031DFD43CC00DA7F90 /* GraphCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
+		9702CC051DFD4F3900DA7F90 /* DebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		9702CC071DFD62F500DA7F90 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		AE23FC243535739463603F77 /* Pods_SSChartView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SSChartView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4156E4ADE399D124CDAA88C /* Pods-SSChartView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSChartView_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SSChartView_Example/Pods-SSChartView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C5EA3DCDBBFC5667A7428244 /* Pods_SSChartView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SSChartView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,10 +102,14 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				9702CC011DFD439D00DA7F90 /* GraphsListViewController.swift */,
+				9702CC031DFD43CC00DA7F90 /* GraphCell.swift */,
+				9702CC051DFD4F3900DA7F90 /* DebugViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				9702CC071DFD62F500DA7F90 /* Playground.playground */,
 			);
 			name = "Example for SSChartView";
 			path = SSChartView;
@@ -363,8 +374,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9702CC041DFD43CC00DA7F90 /* GraphCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				9702CC021DFD439D00DA7F90 /* GraphsListViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				9702CC061DFD4F3900DA7F90 /* DebugViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

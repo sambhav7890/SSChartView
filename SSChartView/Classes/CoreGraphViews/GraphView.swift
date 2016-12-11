@@ -17,6 +17,8 @@ open class GraphView<T: Hashable, U: NumericType>: UIView {
     }
     
     fileprivate var barGraphConfig: BarGraphViewConfig?
+	fileprivate var lineGraphConfig: LineGraphViewConfig?
+	fileprivate var pieGraphConfig: PieGraphViewConfig?
 
 	public init(frame: CGRect, graph: Graph<T, U>? = nil) {
         self.graph = graph
@@ -47,9 +49,26 @@ open class GraphView<T: Hashable, U: NumericType>: UIView {
                 }
                 self.addSubview(view)
             }
+		case .line(let g):
+
+			if let view = g.view(self.bounds) {
+				if let c = lineGraphConfig {
+					view.setLineGraphViewConfig(c)
+				}
+				self.addSubview(view)
+			}
+
+		case .pie(let g):
+
+			if let view = g.view(self.bounds) {
+				if let c = pieGraphConfig {
+					view.setPieGraphViewConfig(c)
+				}
+				self.addSubview(view)
+			}
 		}
     }
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         self.subviews.forEach{
@@ -59,22 +78,43 @@ open class GraphView<T: Hashable, U: NumericType>: UIView {
 }
 
 extension GraphView {
-    
-    public func barGraphConfiguration(_ configuration: () -> BarGraphViewConfig) -> Self {
-        self.barGraphConfig = configuration()
-        self.subviews.forEach { (v) in
-            if let barGraphView = v as? BarGraphView<T, U> {
-                barGraphView.setBarGraphViewConfig(barGraphConfig)
-            }
-        }
-        return self
-    }
+
+	public func barGraphConfiguration(_ configuration: () -> BarGraphViewConfig) -> Self {
+		self.barGraphConfig = configuration()
+		self.subviews.forEach { (v) in
+			if let barGraphView = v as? BarGraphView<T, U> {
+				barGraphView.setBarGraphViewConfig(barGraphConfig)
+			}
+		}
+		return self
+	}
+
+	public func lineGraphConfiguration(_ configuration: () -> LineGraphViewConfig) -> Self {
+		self.lineGraphConfig = configuration()
+		self.subviews.forEach { (v) in
+			if let lineGraphView = v as? LineGraphView<T, U> {
+				lineGraphView.setLineGraphViewConfig(lineGraphConfig)
+			}
+		}
+		return self
+	}
+
+	public func pieGraphConfiguration(_ configuration: () -> PieGraphViewConfig) -> Self {
+		self.pieGraphConfig = configuration()
+		self.subviews.forEach { (v) in
+			if let pieGraphView = v as? PieGraphView<T, U> {
+				pieGraphView.setPieGraphViewConfig(pieGraphConfig)
+			}
+		}
+		return self
+	}
+
 }
 
 extension UIScrollView {
-    
+
     func insetBounds() -> CGRect {
-        
+
         return CGRect(
             x: self.bounds.origin.x + self.contentInset.left,
             y: self.bounds.origin.y + self.contentInset.top,
