@@ -134,6 +134,13 @@ open class UICircularProgressView: UIView {
 			progressLayer.setNeedsDisplay()
 		}
 	}
+	//Percent Text Color
+	@IBInspectable open var font: UIFont? {
+		didSet {
+			progressLayer.font = font
+			progressLayer.setNeedsDisplay()
+		}
+	}
 
 	//Central Circle Fill
 	@IBInspectable open var progressInsideFillColor: UIColor? = nil {
@@ -379,6 +386,7 @@ open class UICircularProgressView: UIView {
 				invalidateGradientCache()
 			}
 		}
+		var font: UIFont?
 		var textColor: UIColor?
 		fileprivate var gradientCache: CGGradient?
 		fileprivate var locationsCache: [CGFloat]?
@@ -421,6 +429,7 @@ open class UICircularProgressView: UIView {
 			colorsArray = progressLayer.colorsArray
 			progressInsideFillColor = progressLayer.progressInsideFillColor
 			textColor = progressLayer.textColor
+			font = progressLayer.font
 		}
 
 		override init() {
@@ -552,7 +561,7 @@ open class UICircularProgressView: UIView {
 			let textStyle = NSMutableParagraphStyle()
 			textStyle.alignment = .left
 			let valueFontSize: CGFloat = size.height / 5
-			let font = UIFont.systemFont(ofSize: valueFontSize)
+			let font = self.font ?? UIFont.systemFont(ofSize: valueFontSize)
 
 			let color = self.textColor ?? self.colorsArray.first ?? UIColor.black
 			let valueFontAttributes = [NSFontAttributeName: font,
