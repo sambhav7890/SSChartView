@@ -43,12 +43,12 @@ open class GraphViewContainer: UIView {
 	@IBOutlet var gradientView: UIView!
 	var gradientLayer = CAGradientLayer()
 
-	public var graphState: GraphGradientState = .gray
+	public var graphState: GraphColorConfig = GraphColorConfig(state: .gray)
 
 	func updateConfigsForState() {
 
 		//Background Gradient
-		let colors = self.graphState.gradientColorsForGraph()
+		let colors = self.graphState.gradientColorsForGraph().flatMap{ $0.cgColor }
 
 		gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
 		gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -97,10 +97,10 @@ open class GraphViewContainer: UIView {
 		gradientLayer.frame = self.gradientView.bounds
 		guard let _ = gradientLayer.superlayer else {
 			self.gradientView.layer.addSublayer(gradientLayer)
-			self.graphState = .gray
+			self.graphState = GraphColorConfig(state: .gray)
 			return
 		}
-		self.graphState = .gray
+		self.graphState = GraphColorConfig(state: .gray)
 	}
 
 	open static func create(_ inView: UIView? = nil) -> GraphViewContainer? {

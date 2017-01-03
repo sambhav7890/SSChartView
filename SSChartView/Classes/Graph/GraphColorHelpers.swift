@@ -36,15 +36,27 @@ extension UIColor {
 }
 
 
-//Gradient
 public enum GraphGradientState {
 	case gray
 	case green
+
+	internal enum GraphGradientStateConfigView {
+		case titleLabel, subtitleLabel, legend, separator, rangeLabel
+	}
 }
 
-extension GraphGradientState {
-	func gradientColorsForBar() -> [UIColor] {
-		switch self {
+//Gradient
+open class GraphColorConfig: NSObject {
+
+	var state: GraphGradientState
+
+	init(state: GraphGradientState) {
+		self.state = state
+	}
+
+
+	open func gradientColorsForBar() -> [UIColor] {
+		switch self.state {
 		case .gray:
 			//Top->Bottom
 			return [UIColor(rgba: (144,165,174,1.0)), UIColor(rgba: (176,190,197,1.0))]
@@ -53,60 +65,51 @@ extension GraphGradientState {
 		}
 	}
 
-	func gradientColorsForGraph() -> [CGColor] {
-		switch self {
+	open func gradientColorsForGraph() -> [UIColor] {
+		switch self.state {
 		case .gray:
-			return [UIColor(rgba: (236,239,241,1.0)), UIColor(rgba: (236,239,241,1.0))].map{$0.cgColor}
+			return [UIColor(rgba: (236,239,241,1.0)), UIColor(rgba: (236,239,241,1.0))]
 		case .green:
-			return [UIColor(rgba: (120,206,125,1.0)),UIColor(rgba: (67,160,71,1.0))].map{$0.cgColor}
+			return [UIColor(rgba: (120,206,125,1.0)),UIColor(rgba: (67,160,71,1.0))]
 		}
 	}
-}
 
-//Colors
-extension GraphGradientState {
-
-	private var graphTitleColorAlpha: (UIColor, CGFloat) {
-		switch self {
+	open var graphTitleColorAlpha: (UIColor, CGFloat) {
+		switch self.state {
 		case .gray: return (UIColor(gray: 79), 1)
 		case .green: return (UIColor.white, 1.0)
 		}
 	}
 
-	private var graphSubTitleColorAlpha: (UIColor, CGFloat) {
-		switch self {
+	open var graphSubTitleColorAlpha: (UIColor, CGFloat) {
+		switch self.state {
 		case .gray: return (UIColor.black, 0.3)
 		case .green: return (UIColor.white, 0.5)
 		}
 	}
 
-	private var graphLegendColorAlpha: (UIColor, CGFloat) {
-		switch self {
+	open var graphLegendColorAlpha: (UIColor, CGFloat) {
+		switch self.state {
 		case .gray: return (UIColor(gray: 79), 0.3)
 		case .green: return (UIColor.white, 1.0)
 		}
 	}
 
-	private var graphSeparatorColorAlpha: (UIColor, CGFloat) {
-		switch self {
+	open var graphSeparatorColorAlpha: (UIColor, CGFloat) {
+		switch self.state {
 		case .gray: return (UIColor.black, 0.1)
 		case .green: return (UIColor.white, 0.1)
 		}
 	}
 
-	private var graphRangeColorAlpha: (UIColor, CGFloat) {
-		switch self {
+	open var graphRangeColorAlpha: (UIColor, CGFloat) {
+		switch self.state {
 		case .gray: return (UIColor(gray: 79), 0.4)
 		case .green: return (UIColor.white, 0.4)
 		}
 	}
 
-
-	enum GraphGradientStateConfigView {
-		case titleLabel, subtitleLabel, legend, separator, rangeLabel
-	}
-
-	func configure(view: UIView, with type: GraphGradientStateConfigView) {
+	internal func configure(view: UIView, with type: GraphGradientState.GraphGradientStateConfigView) {
 
 		let colorAlpha: (UIColor, CGFloat)
 
