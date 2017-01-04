@@ -48,9 +48,9 @@ public enum GraphGradientState {
 //Gradient
 open class GraphColorConfig: NSObject {
 
-	var state: GraphGradientState
+	public var state: GraphGradientState
 
-	init(state: GraphGradientState) {
+	public init(state: GraphGradientState) {
 		self.state = state
 	}
 
