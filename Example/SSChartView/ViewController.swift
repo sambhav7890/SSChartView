@@ -13,9 +13,7 @@ class ViewController: UIViewController {
 
 	@IBOutlet weak var graphContainer: UIView!
 
-	var graphParent :GraphGenParent?
-
-
+	var graphParent: GraphGenParent?
 
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +35,6 @@ class ViewController: UIViewController {
 		self.navigationController?.pushViewController(controller, animated: true)
 	}
 }
-
-
 
 class GraphGenParent {
 
@@ -68,6 +64,4 @@ class GraphGenParent {
 		circle.textColor = UIColor.black
 	}
 
-
 }
-

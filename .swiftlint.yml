@@ -1,0 +1,95 @@
+disabled_rules: # rule identifiers to exclude from running
+  - control_statement
+  - force_cast
+  - empty_count
+  - line_length
+  - function_parameter_count
+  - function_body_length
+  - type_body_length
+  - type_name
+  - conditional_returns_on_newline
+  - force_unwrapping
+  - legacy_cggeometry_functions
+  - legacy_constant
+  - legacy_constructor
+  - legacy_nsgeometry_functions
+  - mark
+  - missing_docs
+  - nesting
+  - valid_docs
+  - variable_name
+  - valid_ibinspectable
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+
+# configurable rules can be customized from this configuration file
+# binary rules can set their severity level
+
+variable_name: 
+  severity: warning
+
+cyclomatic_complexity:
+  warning: 10
+  error: 50
+
+force_try:
+  severity: warning # explicitly
+
+type_body_length:
+  - 300 # warning
+  - 800 #400 # error
+
+file_length:
+  warning: 800
+  error: 2500 #1200
+
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 40
+    error: 150 #50
+  excluded: iPhone # excluded via string
+
+# Current rules with SwiftLint
+# +--------------------------------+--------+-------------+------------------------+--------------------------------------------------+
+# | identifier                     | opt-in | correctable | enabled in your config | configuration                                    |
+# +--------------------------------+--------+-------------+------------------------+--------------------------------------------------+
+# | closing_brace                  | no     | yes         | yes                    | warning                                          |
+# | colon                          | no     | yes         | no                     | flexible_right_spacing: false                    |
+# | comma                          | no     | yes         | no                     | warning                                          |
+# | conditional_returns_on_newline | yes    | no          | no                     | N/A                                              |
+# | control_statement              | no     | no          | no                     | warning                                          |
+# | custom_rules                   | no     | no          | yes                    | user-defined                                     |
+# | cyclomatic_complexity          | no     | no          | yes                    | warning: 10, error: 20                           |
+# | empty_count                    | yes    | no          | no                     | error                                            |
+# | file_length                    | no     | no          | yes                    | warning: 400, error: 1000                        |
+# | force_cast                     | no     | no          | no                     | error                                            |
+# | force_try                      | no     | no          | yes                    | error                                            |
+# | force_unwrapping               | yes    | no          | no                     | warning                                          |
+# | function_body_length           | no     | no          | yes                    | warning: 40, error: 100                          |
+# | function_parameter_count       | no     | no          | yes                    | warning: 5, error: 8                             |
+# | leading_whitespace             | no     | yes         | yes                    | warning                                          |
+# | legacy_cggeometry_functions    | no     | yes         | yes                    | warning                                          |
+# | legacy_constant                | no     | yes         | yes                    | warning                                          |
+# | legacy_constructor             | no     | yes         | yes                    | warning                                          |
+# | legacy_nsgeometry_functions    | no     | yes         | yes                    | warning                                          |
+# | line_length                    | no     | no          | yes                    | warning: 150, error: 250                         |
+# | mark                           | no     | no          | yes                    | warning                                          |
+# | missing_docs                   | yes    | no          | no                     | warning: source.lang.swift.accessibility.public  |
+# | nesting                        | no     | no          | yes                    | warning                                          |
+# | opening_brace                  | no     | yes         | yes                    | warning                                          |
+# | operator_whitespace            | no     | no          | yes                    | warning                                          |
+# | private_outlet                 | yes    | no          | no                     | warning                                          |
+# | private_unit_test              | no     | no          | yes                    | warning: XCTestCase                              |
+# | return_arrow_whitespace        | no     | yes         | yes                    | warning                                          |
+# | statement_position             | no     | yes         | yes                    | (statement_mode) default, (severity) warning     |
+# | todo                           | no     | no          | yes                    | warning                                          |
+# | trailing_newline               | no     | yes         | yes                    | warning                                          |
+# | trailing_semicolon             | no     | yes         | yes                    | warning                                          |
+# | trailing_whitespace            | no     | yes         | yes                    | warning, ignores_empty_lines: false              |
+# | type_body_length               | no     | no          | yes                    | warning: 200, error: 350                         |
+# | type_name                      | no     | no          | yes                    | (min_length) w/e: 3/0, (max_length) w/e: 40/1000 |
+# | valid_docs                     | no     | no          | yes                    | warning                                          |
+# | variable_name                  | no     | no          | yes                    | (min_length) w/e: 3/2, (max_length) w/e: 40/60   |
+# | vertical_whitespace            | yes    | yes         | no                     | warning                                          |
+# +--------------------------------+--------+-------------+------------------------+--------------------------------------------------+

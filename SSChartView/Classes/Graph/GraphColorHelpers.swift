@@ -24,7 +24,7 @@ extension UIColor {
 		if colors.count == 1 {
 			return .mat(colors.first!)
 		}
-		let cgColors = colors.map{ $0.cgColor }
+		let cgColors = colors.map { $0.cgColor }
 		return .gradation(cgColors)
 	}
 
@@ -34,7 +34,6 @@ extension UIColor {
 		return components ?? [0, 0, 0, 0]
 	}
 }
-
 
 public enum GraphGradientState {
 	case gray
@@ -54,12 +53,11 @@ open class GraphColorConfig: NSObject {
 		self.state = state
 	}
 
-
 	open func gradientColorsForBar() -> [UIColor] {
 		switch self.state {
 		case .gray:
 			//Top->Bottom
-			return [UIColor(rgba: (144,165,174,1.0)), UIColor(rgba: (176,190,197,1.0))]
+			return [UIColor(rgba: (144, 165, 174, 1.0)), UIColor(rgba: (176, 190, 197, 1.0))]
 		case .green:
 			return [UIColor.white.withAlphaComponent(0.4)]
 		}
@@ -68,9 +66,9 @@ open class GraphColorConfig: NSObject {
 	open func gradientColorsForGraph() -> [UIColor] {
 		switch self.state {
 		case .gray:
-			return [UIColor(rgba: (236,239,241,1.0)), UIColor(rgba: (236,239,241,1.0))]
+			return [UIColor(rgba: (236, 239, 241, 1.0)), UIColor(rgba: (236, 239, 241, 1.0))]
 		case .green:
-			return [UIColor(rgba: (120,206,125,1.0)),UIColor(rgba: (67,160,71,1.0))]
+			return [UIColor(rgba: (120, 206, 125, 1.0)), UIColor(rgba: (67, 160, 71, 1.0))]
 		}
 	}
 

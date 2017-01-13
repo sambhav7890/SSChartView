@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="w6m-jm-oxK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="w6m-jm-oxK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -56,13 +56,13 @@
                     <navigationItem key="navigationItem" id="ohY-Fu-b3P">
                         <barButtonItem key="rightBarButtonItem" title="Debug" id="YUk-Gd-Hi0">
                             <connections>
-                                <segue destination="Blb-oM-O2y" kind="show" id="u8A-xK-glr"/>
+                                <segue destination="Blb-oM-O2y" kind="show" identifier="showDebugViewController" id="u8A-xK-glr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="graphContainer" destination="XX7-DL-Rmd" id="Oq1-m1-hgo"/>
-                        <segue destination="wJH-DH-LbB" kind="show" id="pkT-2C-Q1c"/>
+                        <segue destination="wJH-DH-LbB" kind="show" identifier="showCollectionListSegue" id="pkT-2C-Q1c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -201,7 +201,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aeh-nK-So5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2.3999999999999999" y="-598.65067466266873"/>
+            <point key="canvasLocation" x="-87" y="83"/>
         </scene>
     </scenes>
 </document>

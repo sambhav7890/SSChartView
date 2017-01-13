@@ -30,7 +30,7 @@ Also contains a class to display a circular progress view.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'SSChartView/Classes/**/*'
-  
+
   s.resource_bundles = {
 	'SSChartView' => ['SSChartView/Assets/**/*.xib']
   }

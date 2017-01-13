@@ -13,14 +13,13 @@ import UIKit
  */
 
 public protocol GraphData {
-    
+
     associatedtype GraphDataKey: Hashable
     associatedtype GraphDataValue: NumericType
-    
+
     var key: GraphDataKey { get }
     var value: GraphDataValue { get }
 }
-
 
 /**
  SequenceType<S: GraphData> -> 'Graph' object
@@ -36,7 +35,7 @@ extension Sequence where Iterator.Element: GraphData {
 		textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
 		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
 
-		return Graph<GraphDataKey, GraphDataValue>(type: .bar, data: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+		return Graph<GraphDataKey, GraphDataValue>(type: .bar, data: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
 	}
 
 	public func lineGraph(
@@ -44,17 +43,16 @@ extension Sequence where Iterator.Element: GraphData {
 		textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
 		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
 
-		return Graph<GraphDataKey, GraphDataValue>(type: .line, data: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+		return Graph<GraphDataKey, GraphDataValue>(type: .line, data: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
 	}
 
 	public func pieGraph(
 		_ textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
 		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
 
-		return Graph<GraphDataKey, GraphDataValue>(type: .pie, data: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
+		return Graph<GraphDataKey, GraphDataValue>(type: .pie, data: self.map { $0 }, range: nil, textDisplayHandler: textDisplayHandler)
 	}
 }
-
 
 /**
  SequenceType<S: NumericType> -> 'Graph' object
@@ -67,24 +65,22 @@ extension Sequence where Iterator.Element: NumericType {
 		textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
 		) -> Graph<String, Iterator.Element> {
 
-		return Graph<String, Iterator.Element>(type: .bar, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+		return Graph<String, Iterator.Element>(type: .bar, array: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
 	}
-
 
 	public func lineGraph(
 		_ range: GraphRange<Iterator.Element>? = nil,
 		textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
 		) -> Graph<String, Iterator.Element> {
 
-		return Graph<String, Iterator.Element>(type: .line, array: self.map{ $0 }, range: range, textDisplayHandler: textDisplayHandler)
+		return Graph<String, Iterator.Element>(type: .line, array: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
 	}
-
 
 	public func pieGraph(
 		_ textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
 		) -> Graph<String, Iterator.Element> {
 
-		return Graph<String, Iterator.Element>(type: .pie, array: self.map{ $0 }, range: nil, textDisplayHandler: textDisplayHandler)
+		return Graph<String, Iterator.Element>(type: .pie, array: self.map { $0 }, range: nil, textDisplayHandler: textDisplayHandler)
 	}
 
 }
@@ -94,7 +90,6 @@ extension Sequence where Iterator.Element: NumericType {
  */
 
 extension Collection where Self: ExpressibleByDictionaryLiteral, Self.Key: Hashable, Self.Value: NumericType, Iterator.Element == (Self.Key, Self.Value) {
-
 
 	typealias aKey = Self.Key
 	typealias aValue = Self.Value
@@ -146,7 +141,7 @@ extension Collection where Self: ExpressibleByDictionaryLiteral, Self.Key: Hasha
 
 extension Array {
     var match : (head: Element, tail: [Element])? {
-        return (count > 0) ? (self[0],Array(self[1..<count])) : nil
+        return (count > 0) ? (self[0], Array(self[1..<count])) : nil
     }
 }
 
@@ -182,12 +177,9 @@ extension NSAttributedString {
 		paragraph.alignment = .center
 
 		return NSAttributedString(string: string, attributes: [
-			NSForegroundColorAttributeName:color,
+			NSForegroundColorAttributeName: color,
 			NSFontAttributeName: font,
 			NSParagraphStyleAttributeName: paragraph
 			])
 	}
 }
-
-
-

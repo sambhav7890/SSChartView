@@ -10,7 +10,6 @@ import UIKit
 
 open class GraphViewContainer: UIView {
 
-
 	//TopView
 	@IBOutlet var topView: UIView!
 
@@ -34,7 +33,6 @@ open class GraphViewContainer: UIView {
 	@IBOutlet weak var topGraphSeparator: UIView!
 	@IBOutlet weak var bottomGraphSeparator: UIView!
 
-
 	//Bottom Legend
 	@IBOutlet var bottomView: UIView!
 	@IBOutlet var legendScroller: UIScrollView!
@@ -48,7 +46,7 @@ open class GraphViewContainer: UIView {
 	func updateConfigsForState() {
 
 		//Background Gradient
-		let colors = self.graphState.gradientColorsForGraph().flatMap{ $0.cgColor }
+		let colors = self.graphState.gradientColorsForGraph().flatMap { return $0.cgColor }
 
 		gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
 		gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -127,9 +125,8 @@ open class GraphViewContainer: UIView {
 		generateGraph(graphData)
 	}
 
-
 	open fileprivate (set) var legendCells: [ExpandableLegendView] = []
-	internal var graphView: GraphView<Int,Double>?
+	internal var graphView: GraphView<Int, Double>?
 
 	open func resetCells() {
 		self.legendScrollContentView.subviews.forEach { $0.removeFromSuperview() }
@@ -177,13 +174,12 @@ extension GraphViewContainer {
 			legendScrollContentView.addConstraint(topConstraint)
 
 			if let firstView = firstView {
-				
+
 				let leftSpaceConstraint = NSLayoutConstraint(item: legendView, attribute: .left, relatedBy: .equal, toItem: firstView, attribute: .right, multiplier: 1, constant: 0)
 				legendScrollContentView.addConstraint(leftSpaceConstraint)
 
 				let equalWidthConstraint = NSLayoutConstraint(item: legendView, attribute: .width, relatedBy: .equal, toItem: firstView, attribute: .width, multiplier: 1, constant: 0)
 				legendScrollContentView.addConstraint(equalWidthConstraint)
-
 
 			} else {
 				let leftSpaceConstraint = NSLayoutConstraint(item: legendView, attribute: .left, relatedBy: .equal, toItem: legendScrollContentView, attribute: .left, multiplier: 1, constant: 0)
@@ -201,10 +197,10 @@ extension GraphViewContainer {
 	}
 
 	func generateGraph(_ data: [GraphDataObject]) {
-		
+
 		let range = GraphRange(min: 0.0, max: 100.0)
 
-		let graph = data.barGraph(range) { (unit, totalValue) -> String? in return "" }
+		let graph = data.barGraph(range) { (_, _) -> String? in return "" }
 
 		let graphView = graph.view(graphScrollContentView.bounds)
 
@@ -225,7 +221,7 @@ extension GraphViewContainer {
 			if let firstColor = colors.first, colors.count == 1 {
 				config.barColor = firstColor.matColor()
 			} else {
-				config.barColor = GraphColorType.gradation(colors.map{$0.cgColor})
+				config.barColor = GraphColorType.gradation(colors.map { $0.cgColor })
 			}
 
 			config.roundedCorners = true

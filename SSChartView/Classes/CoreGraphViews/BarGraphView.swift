@@ -19,8 +19,8 @@ extension CGRect {
 }
 
 public struct BarGraphViewConfig {
-    
-    public var barColor: GraphColorType
+
+	public var barColor: GraphColorType
     public var textColor: UIColor
     public var textFont: UIFont
     public var textVisible: Bool
@@ -29,8 +29,8 @@ public struct BarGraphViewConfig {
 	public var actualBarWidth: CGFloat? = nil
     public var contentInsets: UIEdgeInsets
 	public var roundedCorners: Bool = false
-    
-    public init(
+
+	public init(
         barColor: UIColor? = nil,
         textColor: UIColor? = nil,
         textFont: UIFont? = nil,
@@ -49,34 +49,32 @@ public struct BarGraphViewConfig {
     }
 }
 
-
 internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
 
-    
     internal var graph: BarGraph<T, U>?
-    
-    fileprivate var config = BarGraphViewConfig()
-    
-    init(frame: CGRect, graph: BarGraph<T, U>?) {
-        
-        self.graph = graph
+
+	fileprivate var config = BarGraphViewConfig()
+
+	init(frame: CGRect, graph: BarGraph<T, U>?) {
+
+		self.graph = graph
         super.init(frame: frame)
-        
-        self.backgroundColor = UIColor.clear
+
+		self.backgroundColor = UIColor.clear
         self.setNeedsDisplay()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setBarGraphViewConfig(_ config: BarGraphViewConfig?) {
-        
-        self.config = config ?? BarGraphViewConfig()
+
+	func setBarGraphViewConfig(_ config: BarGraphViewConfig?) {
+
+		self.config = config ?? BarGraphViewConfig()
         self.setNeedsDisplay()
     }
-    
-    fileprivate func graphFrame() -> CGRect {
+
+	fileprivate func graphFrame() -> CGRect {
         return CGRect(
             x: self.config.contentInsets.left,
             y: self.config.contentInsets.top,
@@ -87,15 +85,15 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
-        guard let graph = self.graph else { return }
-        
-        let total = graph.units.map{ $0.value }.reduce(U(0)){ $0 + $1 }
+
+		guard let graph = self.graph else { return }
+
+        let total = graph.units.map { $0.value }.reduce(U(0)) { $0 + $1 }
         let rect = self.graphFrame()
         let min = graph.range.min
         let max = graph.range.max
-        
-        let sectionWidth = rect.size.width / CGFloat(graph.units.count)
+
+		let sectionWidth = rect.size.width / CGFloat(graph.units.count)
         let width = self.config.actualBarWidth ?? (sectionWidth * self.config.barWidthScale)
 
         let zero = rect.size.height / CGFloat((max - min).floatValue()) * CGFloat(min.floatValue())
@@ -151,12 +149,12 @@ internal class BarGraphView<T: Hashable, U: NumericType>: UIView {
 			}
 
             if let str = self.graph?.graphTextDisplay()(u, total) {
-                
+
                 let attrStr = NSAttributedString.graphAttributedString(str, color: self.config.textColor, font: self.config.textFont)
-                
-                let size = attrStr.size()
-                
-                attrStr.draw(
+
+				let size = attrStr.size()
+
+				attrStr.draw(
                     in: CGRect(
                         origin: CGPoint(
                             x: sectionWidth * CGFloat(index) + rect.origin.x,

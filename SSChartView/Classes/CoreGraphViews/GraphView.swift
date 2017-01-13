@@ -9,41 +9,41 @@
 import UIKit
 
 open class GraphView<T: Hashable, U: NumericType>: UIView {
-    
-    open var graph: Graph<T, U>? {
+
+	open var graph: Graph<T, U>? {
         didSet {
             self.reloadData()
         }
     }
-    
-    fileprivate var barGraphConfig: BarGraphViewConfig?
+
+	fileprivate var barGraphConfig: BarGraphViewConfig?
 	fileprivate var lineGraphConfig: LineGraphViewConfig?
 	fileprivate var pieGraphConfig: PieGraphViewConfig?
 
 	public init(frame: CGRect, graph: Graph<T, U>? = nil) {
         self.graph = graph
         super.init(frame: frame)
-        
-        self.backgroundColor = UIColor.clear
+
+		self.backgroundColor = UIColor.clear
         self.reloadData()
     }
-    
-    required public init?(coder aDecoder: NSCoder) {
+
+	required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = UIColor.clear
         self.reloadData()
     }
-    
-    func reloadData() {
-        
-        self.subviews.forEach { $0.removeFromSuperview() }
-        
-        guard let graph = self.graph else { return }
-        
-        switch graph.kind {
+
+	func reloadData() {
+
+		self.subviews.forEach { $0.removeFromSuperview() }
+
+		guard let graph = self.graph else { return }
+
+		switch graph.kind {
         case .bar(let g):
-            
-            if let view = g.view(self.bounds) {
+
+			if let view = g.view(self.bounds) {
                 if let c = barGraphConfig {
                     view.setBarGraphViewConfig(c)
                 }
@@ -71,7 +71,7 @@ open class GraphView<T: Hashable, U: NumericType>: UIView {
 
     open override func layoutSubviews() {
         super.layoutSubviews()
-        self.subviews.forEach{
+        self.subviews.forEach {
             $0.frame = self.bounds
         }
     }
@@ -123,4 +123,3 @@ extension UIScrollView {
         )
     }
 }
-
