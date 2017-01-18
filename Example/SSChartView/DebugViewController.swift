@@ -11,7 +11,6 @@ import SSChartView
 
 class DebugViewController: UIViewController {
 
-
 	@IBOutlet weak var graphContainer: UIView!
 
 	override func viewDidLoad() {
@@ -26,18 +25,16 @@ class DebugViewController: UIViewController {
 
 		let data = [percentFilled, (100-percentFilled)]
 
-		let pieGraph = data.pieGraph({ (graphUnit, value) -> String? in return nil })
+		let pieGraph = data.pieGraph { (_, _) -> String? in return nil }
 
 		let config = PieGraphViewConfig(pieColors: [color, UIColor.clear], isDounut: true)
 
-		let view = pieGraph.view(graphContainer.bounds).pieGraphConfiguration({ () -> PieGraphViewConfig in
+		let view = pieGraph.view(graphContainer.bounds).pieGraphConfiguration { () -> PieGraphViewConfig in
 			return config
-		})
+		}
 
 		view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		graphContainer.addSubview(view)
 	}
-
-
 
 }

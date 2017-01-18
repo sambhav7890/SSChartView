@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SSChartView'
-  s.version          = '1.0.0'
+  s.version          = '0.3.0'
   s.summary          = 'A short description of SSChartView.'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ Also contains a class to display a circular progress view.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'SSChartView/Classes/**/*'
-  
+
   s.resource_bundles = {
 	'SSChartView' => ['SSChartView/Assets/**/*.xib']
   }

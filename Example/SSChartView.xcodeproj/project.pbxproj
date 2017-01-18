@@ -48,6 +48,7 @@
 		9702CC031DFD43CC00DA7F90 /* GraphCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
 		9702CC051DFD4F3900DA7F90 /* DebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		9702CC071DFD62F500DA7F90 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
+		970B1AD91E28C290008AD460 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		AE23FC243535739463603F77 /* Pods_SSChartView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SSChartView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4156E4ADE399D124CDAA88C /* Pods-SSChartView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSChartView_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SSChartView_Example/Pods-SSChartView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C5EA3DCDBBFC5667A7428244 /* Pods_SSChartView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SSChartView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +144,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				970B1AD91E28C290008AD460 /* .swiftlint.yml */,
 				EAFA6445D4EBDEDF44AE0B48 /* SSChartView.podspec */,
 				2910A6252EF305E758797E3E /* README.md */,
 				9375DFA521946EAF4F57D264 /* LICENSE */,
@@ -183,6 +185,7 @@
 				607FACCE1AFB9204008FA782 /* Resources */,
 				455B35BE48A8EC4C63F949CB /* [CP] Embed Pods Frameworks */,
 				957D3D0E94ED6AB54DA0C33A /* [CP] Copy Pods Resources */,
+				970B1AD81E28C1CF008AD460 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -336,6 +339,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SSChartView_Example/Pods-SSChartView_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		970B1AD81E28C1CF008AD460 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\ncd ../\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		9F9721E0C196C5D66344046F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

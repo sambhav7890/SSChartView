@@ -17,7 +17,6 @@ internal extension Bundle {
 	}
 }
 
-
 public extension UIView {
 	public func addAsConstrainedSubview(forContainer view: UIView) {
 		let child = self
@@ -25,10 +24,10 @@ public extension UIView {
 		container.addSubview(child)
 
 		// align graph from the left and right
-		container.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]));
+		container.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]))
 
 		// align graph from the top and bottom
-		container.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]));
+		container.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": child]))
 	}
-	
+
 }

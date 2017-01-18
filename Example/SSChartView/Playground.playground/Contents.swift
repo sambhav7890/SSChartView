@@ -44,7 +44,7 @@ let viewFrame = CGRect(x: 0.0, y: 0.0, width: 180.0, height: 180.0)
 //
 ///// Minus values
 //let range2 = GraphRange(min: -60.0, max: 60.0)
-//let v6 = [-5.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0].map{ $0 * 10.0 }.barGraph(range2).view(viewFrame)
+//let v6 = [-5.0, -4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0].map { $0 * 10.0 }.barGraph(range2).view(viewFrame)
 //let barGraphView6 = v6
 //
 ///// GraphData Protocol -> Graph
@@ -81,15 +81,13 @@ let viewFrame = CGRect(x: 0.0, y: 0.0, width: 180.0, height: 180.0)
 //
 //let barGraphView8 = barGraph8.view(viewFrame)
 
-
 let progress = 30
-
 
 ///* ========= Pie graph ========= */
 
-let pieData = [progress,100 - progress]
+let pieData = [progress, 100 - progress]
 
-let pieGraph = pieData.pieGraph() { (unit, total) -> String? in
+let pieGraph = pieData.pieGraph { (_, _) -> String? in
 	return nil
 }
 
@@ -101,14 +99,8 @@ let pieGraphView = pieGraph.view(viewFrame).pieGraphConfiguration { () -> PieGra
 
 let finalGraphView = pieGraphView
 
-
-
 let circularProgress = UICircularProgressView(frame: viewFrame, colors: UIColor.blue)
 circularProgress.layoutSubviews()
 circularProgress.roundedCorners = false
 
 circularProgress.angle = Double(progress) * 3.6
-
-
-
-

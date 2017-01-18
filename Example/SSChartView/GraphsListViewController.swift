@@ -58,7 +58,6 @@ class GraphCollectionListViewController: UIViewController, UICollectionViewDataS
 		self.collectionView.reloadData()
 	}
 
-
 	// MARK: - UICollectionViewDataSource
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -131,7 +130,7 @@ class GraphCollectionListViewController: UIViewController, UICollectionViewDataS
 
 			let data = [percentFilled, (100-percentFilled)]
 
-			let pieGraph = data.pieGraph({ (graphUnit, value) -> String? in return nil })
+			let pieGraph = data.pieGraph { (_, _) -> String? in return nil }
 
 			let config = PieGraphViewConfig(pieColors: [color, UIColor.clear], textFont: nil, isDounut: true, contentInsets: nil)
 
@@ -142,16 +141,38 @@ class GraphCollectionListViewController: UIViewController, UICollectionViewDataS
 			cell.graphView.addSubview(view)
 
 		case .pieGraph2:
+			let data = [8, 12, 20, 6, 20, 11, 9]
 
-			let view = [8, 12, 20, 6, 20, 11, 9].pieGraph(){ (u, t) -> String? in String(format: "%.0f%%", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: "DINCondensed-Bold", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })
+			let graph = data.pieGraph { (u, t) -> String? in
+				return String(format: "%.0f%%", (Float(u.value) / Float(t)))
+			}
+
+			let view = graph.view(cell.graphView.bounds)
+
+			let _ = view.pieGraphConfiguration {
+				let font = UIFont(name: "DINCondensed-Bold", size: 14.0)
+				let insets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+				return PieGraphViewConfig(textFont: font, isDounut: true, contentInsets: insets)
+			}
+
 			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			cell.graphView.addSubview(view)
 
 			cell.label.text = "[8, 12, 20, 6, 20, 11, 9].pieGraph(){ (u, t) -> String? in String(format: \"%.0f%%\", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: \"DINCondensed-Bold\", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })"
 
 		case .pieGraph3:
+			let data = [8.5, 20.0]
+			let graph = data.pieGraph { (u, t) -> String? in
+				return String(format: "%.0f%%", (Float(u.value) / Float(t)))
+			}
 
-			let view = [8.5, 20.0].pieGraph(){ (u, t) -> String? in String(format: "%.0f%%", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: "DINCondensed-Bold", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })
+			let view = graph.view(cell.graphView.bounds)
+			let _ = view.pieGraphConfiguration {
+				let font = UIFont(name: "DINCondensed-Bold", size: 14.0)
+				let insets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+				return PieGraphViewConfig(textFont: font, isDounut: true, contentInsets: insets)
+			}
+
 			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			cell.graphView.addSubview(view)
 
@@ -167,7 +188,6 @@ class GraphCollectionListViewController: UIViewController, UICollectionViewDataS
 	fileprivate let cellMargin = CGFloat(8.0)
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
 
 		let regularCollection = UITraitCollection(horizontalSizeClass: .regular)
 

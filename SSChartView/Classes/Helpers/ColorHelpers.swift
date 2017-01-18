@@ -41,7 +41,6 @@ enum DefaultColorType {
 	}
 }
 
-
 public extension UIColor {
 
 	public static func colorGradientLocations(forColors colors: [Any]) -> [CGFloat] {
@@ -69,7 +68,7 @@ public extension UIColor {
 		self.init(white: white, alpha: alphaVal)
 	}
 
-	public convenience init(rgba: (Int,Int,Int,Float) = (0,0,0,1.0)) {
+	public convenience init(rgba: (Int, Int, Int, Float) = (0, 0, 0, 1.0)) {
 		let red = CGFloat(rgba.0) / 255.0
 		let green = CGFloat(rgba.1) / 255.0
 		let blue = CGFloat(rgba.2) / 255.0
@@ -88,15 +87,16 @@ public extension UIColor {
 
 	public convenience init(hex: String) {
 
-		let prefixHex = {(str) -> String in
+		let prefixCalculator: ((String) -> String) = { (str) -> String in
 			for prefix in ["0x", "0X", "#"] {
 				if str.hasPrefix(prefix) {
 					return str.substring(from: str.characters.index(str.startIndex, offsetBy: prefix.characters.count))
 				}
 			}
 			return str
-		}(hex)
+		}
 
+		let prefixHex = prefixCalculator(hex)
 
 		if prefixHex.characters.count != 6 && prefixHex.characters.count != 8 {
 			self.init(white: 0.0, alpha: 1.0)

@@ -6,8 +6,6 @@
 //  Copyright © 2016 S. All rights reserved.
 //
 
-
-
 /*
 
 progress.startAngle = -90
@@ -134,6 +132,13 @@ open class UICircularProgressView: UIView {
 			progressLayer.setNeedsDisplay()
 		}
 	}
+	//Percent Text Color
+	@IBInspectable open var font: UIFont? {
+		didSet {
+			progressLayer.font = font
+			progressLayer.setNeedsDisplay()
+		}
+	}
 
 	//Central Circle Fill
 	@IBInspectable open var progressInsideFillColor: UIColor? = nil {
@@ -163,14 +168,11 @@ open class UICircularProgressView: UIView {
 	@objc @IBInspectable fileprivate var PresetGradientColor2: UIColor?
 	@objc @IBInspectable fileprivate var PresetGradientColor3: UIColor?
 
-
 	//================
 	// MARK: - Private Variables
 
 	fileprivate var progressLayer: UICircularProgressViewLayer {
-		get {
-			return layer as! UICircularProgressViewLayer
-		}
+		return layer as! UICircularProgressViewLayer
 	}
 
 	fileprivate var radius: CGFloat! {
@@ -180,7 +182,6 @@ open class UICircularProgressView: UIView {
 	}
 
 	fileprivate var animationCompletionBlock: ((Bool) -> Void)?
-
 
 	//================
 	// MARK: - Public Initializers
@@ -193,7 +194,7 @@ open class UICircularProgressView: UIView {
 		checkAndSetIBColors()
 	}
 
-	convenience public init(frame:CGRect, colors: UIColor...) {
+	convenience public init(frame: CGRect, colors: UIColor...) {
 		self.init(frame: frame)
 		setColors(colors)
 	}
@@ -213,7 +214,7 @@ open class UICircularProgressView: UIView {
 		checkAndSetIBColors()
 	}
 
-	override open class var layerClass : AnyClass {
+	override open class var layerClass: AnyClass {
 		return UICircularProgressViewLayer.self
 	}
 
@@ -346,7 +347,6 @@ open class UICircularProgressView: UIView {
 			}
 		}
 
-
 		var formatBlock: ((Double) -> String) = { angle in
 			var formatString: String = "%.f%%"
 			let fixedAngle = angle <= 0 ? 0 : angle >= 360 ? 100 : angle/3.6
@@ -379,6 +379,7 @@ open class UICircularProgressView: UIView {
 				invalidateGradientCache()
 			}
 		}
+		var font: UIFont?
 		var textColor: UIColor?
 		fileprivate var gradientCache: CGGradient?
 		fileprivate var locationsCache: [CGFloat]?
@@ -421,6 +422,7 @@ open class UICircularProgressView: UIView {
 			colorsArray = progressLayer.colorsArray
 			progressInsideFillColor = progressLayer.progressInsideFillColor
 			textColor = progressLayer.textColor
+			font = progressLayer.font
 		}
 
 		override init() {
@@ -552,7 +554,7 @@ open class UICircularProgressView: UIView {
 			let textStyle = NSMutableParagraphStyle()
 			textStyle.alignment = .left
 			let valueFontSize: CGFloat = size.height / 5
-			let font = UIFont.systemFont(ofSize: valueFontSize)
+			let font = self.font ?? UIFont.systemFont(ofSize: valueFontSize)
 
 			let color = self.textColor ?? self.colorsArray.first ?? UIColor.black
 			let valueFontAttributes = [NSFontAttributeName: font,
@@ -571,7 +573,6 @@ open class UICircularProgressView: UIView {
 			text.draw(at: textCenter)
 		}
 
-
 		fileprivate func fillRectWithContext(_ ctx: CGContext!, color: UIColor) {
 			ctx.setFillColor(color.cgColor)
 			ctx.fill(bounds)
@@ -585,7 +586,7 @@ open class UICircularProgressView: UIView {
 			if let cachedGradient = gradientCache {
 				gradient = cachedGradient
 			} else {
-				guard let cachedGradient = CGGradient(colorSpace: baseSpace, colorComponents: componentsArray, locations: locations,count: componentsArray.count / 4) else {
+				guard let cachedGradient = CGGradient(colorSpace: baseSpace, colorComponents: componentsArray, locations: locations, count: componentsArray.count / 4) else {
 					return
 				}
 
@@ -627,14 +628,13 @@ open class UICircularProgressView: UIView {
 	}
 }
 
-
 extension UICircularProgressView {
 	fileprivate struct Conversion {
-		static func degreesToRadians (_ value:CGFloat) -> CGFloat {
+		static func degreesToRadians (_ value: CGFloat) -> CGFloat {
 			return value * CGFloat(M_PI) / 180.0
 		}
 
-		static func radiansToDegrees (_ value:CGFloat) -> CGFloat {
+		static func radiansToDegrees (_ value: CGFloat) -> CGFloat {
 			return value * 180.0 / CGFloat(M_PI)
 		}
 	}

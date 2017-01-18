@@ -9,13 +9,13 @@
 import UIKit
 
 public struct PieGraphViewConfig {
-    
+
     public var pieColors: [UIColor]?
     public var textColor: UIColor
     public var textFont: UIFont
     public var isDounut: Bool
     public var contentInsets: UIEdgeInsets
-    
+
     public init(
         pieColors: [UIColor]? = nil,
         textColor: UIColor? = nil,
@@ -29,11 +29,11 @@ public struct PieGraphViewConfig {
         self.isDounut = isDounut
         self.contentInsets = contentInsets ?? UIEdgeInsets.zero
     }
-    
+
 }
 
 internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
-    
+
     fileprivate var graph: PieGraph<T, U>? {
         didSet {
             self.config.pieColors = DefaultColorType.pieColors(graph?.units.count ?? 0)
@@ -41,9 +41,9 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
         }
     }
     fileprivate var config: PieGraphViewConfig
-    
+
     init(frame: CGRect, graph: PieGraph<T, U>?) {
-        
+
         self.config = PieGraphViewConfig(pieColors: DefaultColorType.pieColors(graph?.units.count ?? 0))
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
@@ -53,17 +53,17 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setPieGraphViewConfig(_ config: PieGraphViewConfig?) {
         self.config = config ?? PieGraphViewConfig()
         self.setNeedsDisplay()
     }
-    
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
         guard let graph = self.graph else { return }
-        
+
         func convert<S: NumericType>(_ s: S, arr: [S], f: (S) -> S) -> [S] {
             switch arr.match {
             case let .some(h, t):
@@ -74,20 +74,20 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
 				return []
             }
         }
-        
+
         let colors = self.config.pieColors ?? DefaultColorType.pieColors(graph.units.count)
-        
+
         let values = graph.units.map({ max($0.value, U(0)) })
         let total = values.reduce(U(0), { $0 + $1 })
         let percentages = values.map({ Double($0.floatValue() / total.floatValue()) })
-        
+
         let rect = self.graphFrame()
-        
+
 		guard let context = UIGraphicsGetCurrentContext() else { return }
         let x = rect.size.width / 2.0 + rect.origin.x
         let y = rect.size.height / 2.0 + rect.origin.y
         let radius = min(rect.width, rect.height) / 2.0
-        
+
         let centers = convert(0.0, arr: percentages) { $0 / 2.0 }.map { (c) -> CGPoint in
             let angle = M_PI * 2.0 * c - M_PI / 2.0
             return CGPoint(
@@ -95,7 +95,7 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
                 y: Double(y) + sin(angle) * Double(radius * 3.0 / 4.0)
             )
         }
-        
+
         var startAngle = -M_PI / 2.0
 
 		var donutRadius: CGFloat = 0
@@ -126,22 +126,22 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
         }
 
         zip(graph.units, centers).forEach { (u, center) in
-            
+
             guard let str = self.graph?.graphTextDisplay()(u, total) else {
                 return
             }
-            
+
             let paragraph = NSMutableParagraphStyle()
             paragraph.alignment = .center
-            
+
             let attrStr = NSAttributedString(string: str, attributes: [
-                NSForegroundColorAttributeName:self.config.textColor,
+                NSForegroundColorAttributeName: self.config.textColor,
                 NSFontAttributeName: UIFont.systemFont(ofSize: 10.0),
                 NSParagraphStyleAttributeName: paragraph
             ])
-            
+
             let size = attrStr.size()
-            
+
             attrStr.draw(
                 in: CGRect(
                     origin: CGPoint(
@@ -153,7 +153,7 @@ internal class PieGraphView<T: Hashable, U: NumericType>: UIView {
             )
         }
     }
-    
+
     fileprivate func graphFrame() -> CGRect {
         return CGRect(
             x: self.config.contentInsets.left,

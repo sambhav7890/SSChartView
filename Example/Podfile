@@ -6,7 +6,6 @@ target 'SSChartView_Example' do
   target 'SSChartView_Tests' do
     inherit! :search_paths
 
-    
   end
 end
 
