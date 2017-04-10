@@ -516,7 +516,7 @@ open class UICircularProgressView: UIView {
 			let arcRadius = max(radius - trackLineWidth/2, radius - progressLineWidth/2)
 
 			let center = CGPoint(x: width/2, y: height/2)
-			ctx.addArc(center: center, radius: arcRadius, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: false)
+			ctx.addArc(center: center, radius: arcRadius, startAngle: 0, endAngle: CGFloat(Double.pi * 2), clockwise: false)
 
 			trackColor.set()
 
@@ -595,7 +595,7 @@ open class UICircularProgressView: UIView {
 			}
 
 			let halfX = bounds.size.width / 2.0
-			let floatPi = CGFloat(M_PI)
+			let floatPi = CGFloat(Double.pi)
 			let rotateSpeed = clockwise == true ? gradientRotateSpeed : gradientRotateSpeed * -1
 			let angleInRadians = Conversion.degreesToRadians(rotateSpeed! * CGFloat(angle) - 90)
 			let oppositeAngle = angleInRadians > floatPi ? angleInRadians - floatPi : angleInRadians + floatPi
@@ -631,11 +631,11 @@ open class UICircularProgressView: UIView {
 extension UICircularProgressView {
 	fileprivate struct Conversion {
 		static func degreesToRadians (_ value: CGFloat) -> CGFloat {
-			return value * CGFloat(M_PI) / 180.0
+			return value * CGFloat(Double.pi) / 180.0
 		}
 
 		static func radiansToDegrees (_ value: CGFloat) -> CGFloat {
-			return value * 180.0 / CGFloat(M_PI)
+			return value * 180.0 / CGFloat(Double.pi)
 		}
 	}
 

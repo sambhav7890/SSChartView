@@ -38,20 +38,20 @@ extension Sequence where Iterator.Element: GraphData {
 		return Graph<GraphDataKey, GraphDataValue>(type: .bar, data: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
 	}
 
-	public func lineGraph(
-		_ range: GraphRange<GraphDataValue>? = nil,
-		textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
-		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
+//	public func lineGraph(
+//		_ range: GraphRange<GraphDataValue>? = nil,
+//		textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
+//		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
+//
+//		return Graph<GraphDataKey, GraphDataValue>(type: .line, data: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
+//	}
 
-		return Graph<GraphDataKey, GraphDataValue>(type: .line, data: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
-	}
-
-	public func pieGraph(
-		_ textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
-		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
-
-		return Graph<GraphDataKey, GraphDataValue>(type: .pie, data: self.map { $0 }, range: nil, textDisplayHandler: textDisplayHandler)
-	}
+//	public func pieGraph(
+//		_ textDisplayHandler: Graph<GraphDataKey, GraphDataValue>.GraphTextDisplayHandler? = nil
+//		) -> Graph<Iterator.Element.GraphDataKey, Iterator.Element.GraphDataValue> {
+//
+//		return Graph<GraphDataKey, GraphDataValue>(type: .pie, data: self.map { $0 }, range: nil, textDisplayHandler: textDisplayHandler)
+//	}
 }
 
 /**
@@ -68,20 +68,20 @@ extension Sequence where Iterator.Element: NumericType {
 		return Graph<String, Iterator.Element>(type: .bar, array: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
 	}
 
-	public func lineGraph(
-		_ range: GraphRange<Iterator.Element>? = nil,
-		textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
-		) -> Graph<String, Iterator.Element> {
+//	public func lineGraph(
+//		_ range: GraphRange<Iterator.Element>? = nil,
+//		textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
+//		) -> Graph<String, Iterator.Element> {
+//
+//		return Graph<String, Iterator.Element>(type: .line, array: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
+//	}
 
-		return Graph<String, Iterator.Element>(type: .line, array: self.map { $0 }, range: range, textDisplayHandler: textDisplayHandler)
-	}
-
-	public func pieGraph(
-		_ textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
-		) -> Graph<String, Iterator.Element> {
-
-		return Graph<String, Iterator.Element>(type: .pie, array: self.map { $0 }, range: nil, textDisplayHandler: textDisplayHandler)
-	}
+//	public func pieGraph(
+//		_ textDisplayHandler: Graph<String, Iterator.Element>.GraphTextDisplayHandler? = nil
+//		) -> Graph<String, Iterator.Element> {
+//
+//		return Graph<String, Iterator.Element>(type: .pie, array: self.map { $0 }, range: nil, textDisplayHandler: textDisplayHandler)
+//	}
 
 }
 
@@ -103,23 +103,23 @@ extension Collection where Self: ExpressibleByDictionaryLiteral, Self.Key: Hasha
 		return Graph<aKey, aValue>(type: .bar, dictionary: dict(), range: range, textDisplayHandler: textDisplayHandler)
 	}
 
-	public func lineGraph(
-		_ range: GraphRange<aValue>? = nil,
-		sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
-		textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
-		) -> Graph<aKey, aValue> {
+//	public func lineGraph(
+//		_ range: GraphRange<aValue>? = nil,
+//		sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
+//		textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
+//		) -> Graph<aKey, aValue> {
+//
+//		return Graph<aKey, aValue>(type: .line, dictionary: dict(), range: range, textDisplayHandler: textDisplayHandler)
+//	}
 
-		return Graph<aKey, aValue>(type: .line, dictionary: dict(), range: range, textDisplayHandler: textDisplayHandler)
-	}
-
-	public func pieGraph(
-		_ range: GraphRange<aValue>? = nil,
-		sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
-		textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
-		) -> Graph<aKey, aValue> {
-
-		return Graph<aKey, aValue>(type: .pie, dictionary: dict(), range: nil, textDisplayHandler: textDisplayHandler)
-	}
+//	public func pieGraph(
+//		_ range: GraphRange<aValue>? = nil,
+//		sort: (((Self.Key, Self.Value), (Self.Key, Self.Value)) -> Bool)? = nil,
+//		textDisplayHandler: Graph<aKey, aValue>.GraphTextDisplayHandler? = nil
+//		) -> Graph<aKey, aValue> {
+//
+//		return Graph<aKey, aValue>(type: .pie, dictionary: dict(), range: nil, textDisplayHandler: textDisplayHandler)
+//	}
 
 	func dict() -> [aKey: aValue] {
 		var d = [aKey: aValue]()

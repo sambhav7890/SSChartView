@@ -10,19 +10,19 @@ import UIKit
 import SSChartView
 
 enum GraphExampleType: Int {
-	case
-	barGraph1,
-	barGraph2,
-	barGraph3,
-	lineGraph1,
-	lineGraph2,
-	lineGraph3,
-	pieGraph1,
-	pieGraph2,
-	pieGraph3
+
+	case barGraph1
+	case barGraph2
+	case barGraph3
+//	case lineGraph1
+//	case lineGraph2
+//	case lineGraph3
+//	case pieGraph1
+//	case pieGraph2
+//	case pieGraph3
 
 	static func count() -> Int {
-		return 9
+		return 3
 	}
 
 }
@@ -99,85 +99,85 @@ class GraphCollectionListViewController: UIViewController, UICollectionViewDataS
 
 			cell.label.text = "let view = [8.0, 12.0, 20.0, 10.0, 6.0, 20.0, 11.0, 9.0, 12.0, 16.0, 10.0, 6.0, 20.0].barGraph(GraphRange(min: 0, max: 25)).view(cell.graphView.bounds).barGraphConfiguration({ BarGraphViewConfig(barColor: UIColor(hex: \"#ccff66\"), barWidthScale: 0.4) })"
 
-		case .lineGraph1:
-
-			let view = (1 ... 10).lineGraph(GraphRange(min: 0, max: 11)).view(cell.graphView.bounds)
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			cell.graphView.addSubview(view)
-
-			cell.label.text = "let view = (1 ... 10).lineGraph(GraphRange(min: 0, max: 11)).view(cell.graphView.bounds)"
-
-		case .lineGraph2:
-
-			let view = [8, 12, 20, -10, 6, 20, -11, 9, 12, 16, -10, 6, 20, -12].lineGraph().view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: "#ff6699"), contentInsets: UIEdgeInsets(top: 32.0, left: 32.0, bottom: 32.0, right: 32.0)) })
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			cell.graphView.addSubview(view)
-
-			cell.label.text = "[8, 12, 20, -10, 6, 20, -11, 9, 12, 16, -10, 6, 20, -12].lineGraph().view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: \"#ff6699\"), contentInsets: UIEdgeInsets(top: 32.0, left: 32.0, bottom: 32.0, right: 32.0)) })"
-
-		case .lineGraph3:
-
-			let view = [8.0, 12.0, 20.0, 10.0, 6.0, 20.0, 11.0, 9.0, 12.0, 16.0, 10.0, 6.0, 20.0].lineGraph(GraphRange(min: 0, max: 25)).view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: "#ccff33"), lineWidth: 2.0, dotDiameter: 20.0) })
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			cell.graphView.addSubview(view)
-
-			cell.label.text = "[8.0, 12.0, 20.0, 10.0, 6.0, 20.0, 11.0, 9.0, 12.0, 16.0, 10.0, 6.0, 20.0].lineGraph(GraphRange(min: 0, max: 25)).view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: \"#ccff66\"), lineWidth: 1.0, dotDiameter: 10.0) })"
-
-		case .pieGraph1:
-
-			let percentFilled: Int = 75
-			let color = UIColor.blue
-
-			let data = [percentFilled, (100-percentFilled)]
-
-			let pieGraph = data.pieGraph { (_, _) -> String? in return nil }
-
-			let config = PieGraphViewConfig(pieColors: [color, UIColor.clear], textFont: nil, isDounut: true, contentInsets: nil)
-
-			let view = pieGraph.view(cell.graphView.bounds).pieGraphConfiguration({ () -> PieGraphViewConfig in
-				return config
-			})
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			cell.graphView.addSubview(view)
-
-		case .pieGraph2:
-			let data = [8, 12, 20, 6, 20, 11, 9]
-
-			let graph = data.pieGraph { (u, t) -> String? in
-				return String(format: "%.0f%%", (Float(u.value) / Float(t)))
-			}
-
-			let view = graph.view(cell.graphView.bounds)
-
-			let _ = view.pieGraphConfiguration {
-				let font = UIFont(name: "DINCondensed-Bold", size: 14.0)
-				let insets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-				return PieGraphViewConfig(textFont: font, isDounut: true, contentInsets: insets)
-			}
-
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			cell.graphView.addSubview(view)
-
-			cell.label.text = "[8, 12, 20, 6, 20, 11, 9].pieGraph(){ (u, t) -> String? in String(format: \"%.0f%%\", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: \"DINCondensed-Bold\", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })"
-
-		case .pieGraph3:
-			let data = [8.5, 20.0]
-			let graph = data.pieGraph { (u, t) -> String? in
-				return String(format: "%.0f%%", (Float(u.value) / Float(t)))
-			}
-
-			let view = graph.view(cell.graphView.bounds)
-			let _ = view.pieGraphConfiguration {
-				let font = UIFont(name: "DINCondensed-Bold", size: 14.0)
-				let insets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-				return PieGraphViewConfig(textFont: font, isDounut: true, contentInsets: insets)
-			}
-
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			cell.graphView.addSubview(view)
-
-			cell.label.text = "[8.5, 20.0].pieGraph(){ (u, t) -> String? in String(format: \"%.0f%%\", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: \"DINCondensed-Bold\", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })"
-
+//		case .lineGraph1:
+//
+//			let view = (1 ... 10).lineGraph(GraphRange(min: 0, max: 11)).view(cell.graphView.bounds)
+//			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//			cell.graphView.addSubview(view)
+//
+//			cell.label.text = "let view = (1 ... 10).lineGraph(GraphRange(min: 0, max: 11)).view(cell.graphView.bounds)"
+//
+//		case .lineGraph2:
+//
+//			let view = [8, 12, 20, -10, 6, 20, -11, 9, 12, 16, -10, 6, 20, -12].lineGraph().view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: "#ff6699"), contentInsets: UIEdgeInsets(top: 32.0, left: 32.0, bottom: 32.0, right: 32.0)) })
+//			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//			cell.graphView.addSubview(view)
+//
+//			cell.label.text = "[8, 12, 20, -10, 6, 20, -11, 9, 12, 16, -10, 6, 20, -12].lineGraph().view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: \"#ff6699\"), contentInsets: UIEdgeInsets(top: 32.0, left: 32.0, bottom: 32.0, right: 32.0)) })"
+//
+//		case .lineGraph3:
+//
+//			let view = [8.0, 12.0, 20.0, 10.0, 6.0, 20.0, 11.0, 9.0, 12.0, 16.0, 10.0, 6.0, 20.0].lineGraph(GraphRange(min: 0, max: 25)).view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: "#ccff33"), lineWidth: 2.0, dotDiameter: 20.0) })
+//			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//			cell.graphView.addSubview(view)
+//
+//			cell.label.text = "[8.0, 12.0, 20.0, 10.0, 6.0, 20.0, 11.0, 9.0, 12.0, 16.0, 10.0, 6.0, 20.0].lineGraph(GraphRange(min: 0, max: 25)).view(cell.graphView.bounds).lineGraphConfiguration({ LineGraphViewConfig(lineColor: UIColor(hex: \"#ccff66\"), lineWidth: 1.0, dotDiameter: 10.0) })"
+//
+//		case .pieGraph1:
+//
+//			let percentFilled: Int = 75
+//			let color = UIColor.blue
+//
+//			let data = [percentFilled, (100-percentFilled)]
+//
+//			let pieGraph = data.pieGraph { (_, _) -> String? in return nil }
+//
+//			let config = PieGraphViewConfig(pieColors: [color, UIColor.clear], textFont: nil, isDounut: true, contentInsets: nil)
+//
+//			let view = pieGraph.view(cell.graphView.bounds).pieGraphConfiguration({ () -> PieGraphViewConfig in
+//				return config
+//			})
+//			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//			cell.graphView.addSubview(view)
+//
+//		case .pieGraph2:
+//			let data = [8, 12, 20, 6, 20, 11, 9]
+//
+//			let graph = data.pieGraph { (u, t) -> String? in
+//				return String(format: "%.0f%%", (Float(u.value) / Float(t)))
+//			}
+//
+//			let view = graph.view(cell.graphView.bounds)
+//
+//			let _ = view.pieGraphConfiguration {
+//				let font = UIFont(name: "DINCondensed-Bold", size: 14.0)
+//				let insets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+//				return PieGraphViewConfig(textFont: font, isDounut: true, contentInsets: insets)
+//			}
+//
+//			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//			cell.graphView.addSubview(view)
+//
+//			cell.label.text = "[8, 12, 20, 6, 20, 11, 9].pieGraph(){ (u, t) -> String? in String(format: \"%.0f%%\", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: \"DINCondensed-Bold\", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })"
+//
+//		case .pieGraph3:
+//			let data = [8.5, 20.0]
+//			let graph = data.pieGraph { (u, t) -> String? in
+//				return String(format: "%.0f%%", (Float(u.value) / Float(t)))
+//			}
+//
+//			let view = graph.view(cell.graphView.bounds)
+//			let _ = view.pieGraphConfiguration {
+//				let font = UIFont(name: "DINCondensed-Bold", size: 14.0)
+//				let insets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+//				return PieGraphViewConfig(textFont: font, isDounut: true, contentInsets: insets)
+//			}
+//
+//			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//			cell.graphView.addSubview(view)
+//
+//			cell.label.text = "[8.5, 20.0].pieGraph(){ (u, t) -> String? in String(format: \"%.0f%%\", (Float(u.value) / Float(t)))}.view(cell.graphView.bounds).pieGraphConfiguration({ PieGraphViewConfig(textFont: UIFont(name: \"DINCondensed-Bold\", size: 14.0), isDounut: true, contentInsets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)) })"
+//
 		}
 
 		return cell

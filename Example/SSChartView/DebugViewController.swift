@@ -20,19 +20,19 @@ class DebugViewController: UIViewController {
 
 	func config() {
 
-		let percentFilled: Int = 75
-		let color = UIColor.blue
+//		let percentFilled: Int = 75
+//		let color = UIColor.blue
+//
+//		let data = [percentFilled, (100-percentFilled)]
 
-		let data = [percentFilled, (100-percentFilled)]
-
-		let pieGraph = data.pieGraph { (_, _) -> String? in return nil }
-
-		let config = PieGraphViewConfig(pieColors: [color, UIColor.clear], isDounut: true)
-
-		let view = pieGraph.view(graphContainer.bounds).pieGraphConfiguration { () -> PieGraphViewConfig in
-			return config
-		}
-
+//		let pieGraph = data.pieGraph { (_, _) -> String? in return nil }
+//
+//		let config = PieGraphViewConfig(pieColors: [color, UIColor.clear], isDounut: true)
+//
+//		let view = pieGraph.view(graphContainer.bounds).pieGraphConfiguration { () -> PieGraphViewConfig in
+//			return config
+//		}
+//
 		view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		graphContainer.addSubview(view)
 	}

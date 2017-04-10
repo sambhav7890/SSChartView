@@ -1,11 +1,11 @@
 //: Playground - noun: a place where people can play
 
-import UIKit
-import SSChartView
+//import UIKit
+//import SSChartView
 
-let str = "Hello Graphs!!"
+//let str = "Hello Graphs!!"
 
-let viewFrame = CGRect(x: 0.0, y: 0.0, width: 180.0, height: 180.0)
+//let viewFrame = CGRect(x: 0.0, y: 0.0, width: 180.0, height: 180.0)
 
 ///* ========= Bar graph ========= */
 //
@@ -81,26 +81,26 @@ let viewFrame = CGRect(x: 0.0, y: 0.0, width: 180.0, height: 180.0)
 //
 //let barGraphView8 = barGraph8.view(viewFrame)
 
-let progress = 30
-
-///* ========= Pie graph ========= */
-
-let pieData = [progress, 100 - progress]
-
-let pieGraph = pieData.pieGraph { (_, _) -> String? in
-	return nil
-}
-
-let pieGraphConfig = PieGraphViewConfig(pieColors: [UIColor.blue, UIColor.clear], textColor: nil, textFont: nil, isDounut: true, contentInsets: nil)
-
-let pieGraphView = pieGraph.view(viewFrame).pieGraphConfiguration { () -> PieGraphViewConfig in
-	return pieGraphConfig
-}
-
-let finalGraphView = pieGraphView
-
-let circularProgress = UICircularProgressView(frame: viewFrame, colors: UIColor.blue)
-circularProgress.layoutSubviews()
-circularProgress.roundedCorners = false
-
-circularProgress.angle = Double(progress) * 3.6
+//let progress = 30
+//
+/////* ========= Pie graph ========= */
+//
+//let pieData = [progress, 100 - progress]
+//
+//let pieGraph = pieData.pieGraph { (_, _) -> String? in
+//	return nil
+//}
+//
+//let pieGraphConfig = PieGraphViewConfig(pieColors: [UIColor.blue, UIColor.clear], textColor: nil, textFont: nil, isDounut: true, contentInsets: nil)
+//
+//let pieGraphView = pieGraph.view(viewFrame).pieGraphConfiguration { () -> PieGraphViewConfig in
+//	return pieGraphConfig
+//}
+//
+//let finalGraphView = pieGraphView
+//
+//let circularProgress = UICircularProgressView(frame: viewFrame, colors: UIColor.blue)
+//circularProgress.layoutSubviews()
+//circularProgress.roundedCorners = false
+//
+//circularProgress.angle = Double(progress) * 3.6
