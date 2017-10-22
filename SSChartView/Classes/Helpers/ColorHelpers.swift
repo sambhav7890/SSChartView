@@ -36,8 +36,9 @@ enum DefaultColorType {
 			}
 			return [arr[randomIndex]] + randomArray(tail)
 		}
-
-		return Array(0 ..< count).map({ $0 }).map({ UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 0.9, brightness: 0.9, alpha: 1.0) })
+		let arr = Array(0 ..< count).map({ $0 })
+		let colors = arr.map({ UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 0.9, brightness: 0.9, alpha: 1.0) })
+		return colors
 	}
 }
 
